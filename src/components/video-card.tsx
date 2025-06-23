@@ -1,12 +1,11 @@
-
 import Link from 'next/link';
 import { Youtube, FileText } from 'lucide-react';
-import type { VideoItem } from '@/lib/data';
+import type { guitarItem, gamingItem } from '@/lib/data';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 interface VideoCardProps {
-  video: VideoItem;
+  video: guitarItem | gamingItem;
 }
 
 export function VideoCard({ video }: VideoCardProps) {
@@ -36,7 +35,7 @@ export function VideoCard({ video }: VideoCardProps) {
             <Youtube className="mr-2 h-4 w-4" /> Watch on YouTube
           </Link>
         </Button>
-        {video.category === 'guitar' && video.tablatureId && (
+        {'tablatureId' in video && video.tablatureId && (
           <Button asChild variant="secondary" size="sm" className="w-full sm:w-auto">
             <Link href={`/tab/${video.tablatureId}`}>
               <FileText className="mr-2 h-4 w-4" /> View Tab

@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect } from 'react';
@@ -8,115 +7,146 @@ import { AppHeader } from '@/components/app-header';
 import { AppFooter } from '@/components/app-footer';
 import { VideoCard } from '@/components/video-card';
 import { ProjectCard } from '@/components/project-card';
-import { guitarVideos, codingProjects, gamingVideos, VideoItem, ProjectItem } from '@/lib/data';
+import { guitarVideos, codingProjects, gamingVideos, guitarItem, ProjectItem, gamingItem } from '@/lib/data';
 import { Music2, Code2, Gamepad2 } from 'lucide-react';
+
+// Static data - this will be populated at build time
+const STATIC_DATA = {
+  guitarVideos: guitarVideos,
+  codingProjects: codingProjects,
+  gamingVideos: gamingVideos
+};
 
 export default function ShowcasePage() {
   const searchParams = useSearchParams();
-  const activeSection = searchParams.get('section') || 'guitar';
+  const section = searchParams.get('section') || 'guitar';
 
-  useEffect(() => {
-    const style = document.createElement('style');
-    style.innerHTML = `
-      @keyframes fade-in-down {
-        0% { opacity: 0; transform: translateY(-20px); }
-        100% { opacity: 1; transform: translateY(0); }
-      }
-      .animate-fade-in-down { animation: fade-in-down 0.5s ease-out forwards; }
-    `;
-    document.head.appendChild(style);
-    return () => {
-      if (document.head.contains(style)) {
-        document.head.removeChild(style);
-      }
-    };
-  }, []);
+  const renderContent = () => {
+    switch (section) {
+      case 'guitar':
+        return (
+          <div className="space-y-6">
+            <div className="flex items-center gap-2 mb-6">
+              <Music2 className="h-6 w-6 text-red-500" />
+              <h2 className="text-2xl font-bold">Guitar Videos</h2>
+            </div>
+            {STATIC_DATA.guitarVideos.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {STATIC_DATA.guitarVideos.map((video) => (
+                  <VideoCard key={video.id} video={video} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <Music2 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <p className="text-gray-600">No guitar videos to display</p>
+              </div>
+            )}
+          </div>
+        );
 
-  const getSectionTitle = () => {
-    switch (activeSection) {
-      case 'guitar': return 'Guitar Covers & Tabs';
-      case 'coding': return 'Coding Projects';
-      case 'gaming': return 'Gaming Highlights';
-      default: return 'Personal Showcase';
+      case 'coding':
+        return (
+          <div className="space-y-6">
+            <div className="flex items-center gap-2 mb-6">
+              <Code2 className="h-6 w-6 text-blue-500" />
+              <h2 className="text-2xl font-bold">Coding Projects</h2>
+            </div>
+            {STATIC_DATA.codingProjects.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {STATIC_DATA.codingProjects.map((project) => (
+                  <ProjectCard key={project.id} project={project} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <Code2 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <p className="text-gray-600">No coding projects to display</p>
+              </div>
+            )}
+          </div>
+        );
+
+      case 'gaming':
+        return (
+          <div className="space-y-6">
+            <div className="flex items-center gap-2 mb-6">
+              <Gamepad2 className="h-6 w-6 text-green-500" />
+              <h2 className="text-2xl font-bold">Gaming Videos</h2>
+            </div>
+            {STATIC_DATA.gamingVideos.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {STATIC_DATA.gamingVideos.map((video) => (
+                  <VideoCard key={video.id} video={video} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <Gamepad2 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <p className="text-gray-600">No gaming videos to display</p>
+              </div>
+            )}
+          </div>
+        );
+
+      default:
+        return null;
     }
-  };
-
-  const renderGuitarVideos = () => {
-    if (guitarVideos.length === 0) {
-      return <p className="text-muted-foreground col-span-full text-center py-8">No guitar videos to display.</p>;
-    }
-    return guitarVideos.map((video) => (
-      <VideoCard key={video.id} video={video} />
-    ));
-  };
-
-  const renderCodingProjects = () => {
-    if (codingProjects.length === 0) {
-      return <p className="text-muted-foreground col-span-full text-center py-8">No coding projects to display.</p>;
-    }
-    return codingProjects.map((project) => (
-      <ProjectCard key={project.id} project={project} />
-    ));
-  };
-
-  const renderGamingVideos = () => {
-    if (gamingVideos.length === 0) {
-      return <p className="text-muted-foreground col-span-full text-center py-8">No gaming videos to display.</p>;
-    }
-    return gamingVideos.map((video) => (
-      <VideoCard key={video.id} video={video} />
-    ));
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground font-body">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <AppHeader />
-      <main className="flex-grow py-8 sm:py-12">
-        <div className="px-4 sm:px-6 lg:px-8"> 
-          <h1 className="text-4xl sm:text-5xl font-headline font-bold mb-8 sm:mb-12 text-center text-primary animate-fade-in-down">
-            {getSectionTitle()}
-          </h1>
+      
+      <main className="container mx-auto px-4 py-8">
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Showcase</h1>
+          <p className="text-lg text-gray-600 mb-6">
+            Explore my guitar videos, coding projects, and gaming content
+          </p>
+          
+          <div className="flex flex-wrap gap-4">
+            <Link
+              href="/showcase?section=guitar"
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                section === 'guitar'
+                  ? 'bg-red-500 text-white'
+                  : 'bg-white text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              <Music2 className="inline h-4 w-4 mr-2" />
+              Guitar
+            </Link>
+            
+            <Link
+              href="/showcase?section=coding"
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                section === 'coding'
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-white text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              <Code2 className="inline h-4 w-4 mr-2" />
+              Coding
+            </Link>
+            
+            <Link
+              href="/showcase?section=gaming"
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                section === 'gaming'
+                  ? 'bg-green-500 text-white'
+                  : 'bg-white text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              <Gamepad2 className="inline h-4 w-4 mr-2" />
+              Gaming
+            </Link>
+          </div>
         </div>
-
-        {activeSection === 'guitar' && (
-          <div className="w-full"> 
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8"> 
-              <h2 className="text-2xl sm:text-3xl font-headline font-semibold mb-4 sm:mb-6 flex items-center">
-                <Music2 className="mr-3 h-6 w-6 text-accent" />Guitar
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                {renderGuitarVideos()}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {activeSection === 'coding' && (
-          <div className="w-full mt-8 sm:mt-12"> 
-             <div className="container mx-auto px-4 sm:px-6 lg:px-8"> 
-              <h2 className="text-2xl sm:text-3xl font-headline font-semibold mb-4 sm:mb-6 flex items-center">
-                <Code2 className="mr-3 h-6 w-6 text-accent" />Coding
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                {renderCodingProjects()}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {activeSection === 'gaming' && (
-          <div className="w-full mt-8 sm:mt-12"> 
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8"> 
-              <h2 className="text-2xl sm:text-3xl font-headline font-semibold mb-4 sm:mb-6 flex items-center">
-                <Gamepad2 className="mr-3 h-6 w-6 text-accent" />Gaming
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                {renderGamingVideos()}
-              </div>
-            </div>
-          </div>
-        )}
+        
+        {renderContent()}
       </main>
+      
       <AppFooter />
     </div>
   );
