@@ -41,7 +41,7 @@ export interface ProjectItem {
 
 // Import data from separate JSON files
 export const guitarVideos: guitarItem[] = guitarData;
-export const codingProjects: ProjectItem[] = codingData;
+export const projects: ProjectItem[] = codingData;
 export const gamingVideos: gamingItem[] = gamingData;
 
 // Import tablatures

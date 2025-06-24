@@ -1,8 +1,7 @@
-
 "use client";
 
 import Link from 'next/link';
-import { VenetianMask, Music2, Code2, Gamepad2, UserCircle } from 'lucide-react';
+import { VenetianMask, Music2, Code2, Gamepad2, UserCircle, FolderOpen } from 'lucide-react';
 import { useSearchParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
@@ -49,7 +48,7 @@ export function AppHeader() {
             <Music2 className="h-4 w-4" /> Guitar
           </Link>
           <Link href="/showcase?section=coding" className={navLinkClasses('coding')}>
-            <Code2 className="h-4 w-4" /> Coding
+            <FolderOpen className="h-4 w-4" /> Projects
           </Link>
           <Link href="/showcase?section=gaming" className={navLinkClasses('gaming')}>
             <Gamepad2 className="h-4 w-4" /> Gaming

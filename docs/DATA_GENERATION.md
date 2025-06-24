@@ -67,11 +67,26 @@ This will:
 4. Add new gaming videos (avoiding duplicates)
 5. Write updated data to `gaming-data.json`
 
+### Guitar RSS Grabber
+Dedicated script for guitar/music content:
+
+```bash
+npm run grab-guitar
+```
+
+This will:
+1. Read existing `guitar-data.json`
+2. Fetch from configured guitar RSS feeds
+3. Parse YouTube Atom format feeds
+4. Add new guitar videos (avoiding duplicates)
+5. Write updated data to `guitar-data.json`
+
 ### Development
 For development, you can regenerate data as needed:
 
 ```bash
 npm run grab-gaming    # Update gaming content
+npm run grab-guitar    # Update guitar content
 npm run generate-data  # Update all content
 npm run dev           # Start development server
 ```
@@ -94,6 +109,16 @@ Edit `scripts/grab-gaming-rss.js`:
 const GAMING_RSS_FEEDS = [
   "https://www.youtube.com/feeds/videos.xml?channel_id=YOUR_CHANNEL_ID",
   "https://www.youtube.com/feeds/videos.xml?user=GamingUsername"
+];
+```
+
+#### Guitar RSS Feeds
+Edit `scripts/grab-guitar-rss.js`:
+
+```javascript
+const GUITAR_RSS_FEEDS = [
+  "https://www.youtube.com/feeds/videos.xml?channel_id=YOUR_CHANNEL_ID",
+  "https://www.youtube.com/feeds/videos.xml?user=GuitarUsername"
 ];
 ```
 
@@ -219,4 +244,5 @@ To add a new content type (e.g., blog posts):
 |--------|---------|--------|
 | `npm run generate-data` | Generate all data from RSS feeds | Updates all JSON files |
 | `npm run grab-gaming` | Grab gaming content only | Updates `gaming-data.json` |
+| `npm run grab-guitar` | Grab guitar content only | Updates `guitar-data.json` |
 | `npm run build` | Build with data generation | Runs generate-data + build | 
