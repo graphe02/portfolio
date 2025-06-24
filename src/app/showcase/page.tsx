@@ -7,13 +7,14 @@ import { AppHeader } from '@/components/app-header';
 import { AppFooter } from '@/components/app-footer';
 import { VideoCard } from '@/components/video-card';
 import { ProjectCard } from '@/components/project-card';
-import { guitarVideos, codingProjects, gamingVideos, guitarItem, ProjectItem, gamingItem } from '@/lib/data';
-import { Music2, Code2, Gamepad2 } from 'lucide-react';
+import { guitarVideos, projects, gamingVideos, guitarItem, ProjectItem, gamingItem } from '@/lib/data';
+import { Music2, Code2, Gamepad2, Edit3, FolderOpen } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 // Static data - this will be populated at build time
 const STATIC_DATA = {
   guitarVideos: guitarVideos,
-  codingProjects: codingProjects,
+  projects: projects,
   gamingVideos: gamingVideos
 };
 
@@ -30,6 +31,17 @@ export default function ShowcasePage() {
               <Music2 className="h-6 w-6 text-red-500" />
               <h2 className="text-2xl font-bold">Guitar Videos</h2>
             </div>
+            
+            {/* Large centered Edit Tablatures button */}
+            <div className="flex justify-center mb-8">
+              <Button asChild size="lg" className="w-full max-w-4xl h-16 text-xl font-semibold">
+                <Link href="/tab/editor">
+                  <Edit3 className="mr-3 h-6 w-6" />
+                  Edit Tablatures
+                </Link>
+              </Button>
+            </div>
+            
             {STATIC_DATA.guitarVideos.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {STATIC_DATA.guitarVideos.map((video) => (
@@ -49,19 +61,19 @@ export default function ShowcasePage() {
         return (
           <div className="space-y-6">
             <div className="flex items-center gap-2 mb-6">
-              <Code2 className="h-6 w-6 text-blue-500" />
-              <h2 className="text-2xl font-bold">Coding Projects</h2>
+              <FolderOpen className="h-6 w-6 text-blue-500" />
+              <h2 className="text-2xl font-bold">Projects</h2>
             </div>
-            {STATIC_DATA.codingProjects.length > 0 ? (
+            {STATIC_DATA.projects.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {STATIC_DATA.codingProjects.map((project) => (
+                {STATIC_DATA.projects.map((project) => (
                   <ProjectCard key={project.id} project={project} />
                 ))}
               </div>
             ) : (
               <div className="text-center py-12">
-                <Code2 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600">No coding projects to display</p>
+                <FolderOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <p className="text-gray-600">No projects to display</p>
               </div>
             )}
           </div>
@@ -102,7 +114,7 @@ export default function ShowcasePage() {
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Showcase</h1>
           <p className="text-lg text-gray-600 mb-6">
-            Explore my guitar videos, coding projects, and gaming content
+            Explore my guitar videos, projects, and gaming content
           </p>
           
           <div className="flex flex-wrap gap-4">
@@ -126,8 +138,8 @@ export default function ShowcasePage() {
                   : 'bg-white text-gray-700 hover:bg-gray-50'
               }`}
             >
-              <Code2 className="inline h-4 w-4 mr-2" />
-              Coding
+              <FolderOpen className="inline h-4 w-4 mr-2" />
+              Projects
             </Link>
             
             <Link
