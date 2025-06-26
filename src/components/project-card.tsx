@@ -1,7 +1,6 @@
-
 import Image from 'next/image';
 import Link from 'next/link';
-import { Github, ExternalLink, Video } from 'lucide-react';
+import { FiGithub, FiExternalLink, FiVideo } from 'react-icons/fi';
 import type { ProjectItem } from '@/lib/data';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -60,21 +59,21 @@ export function ProjectCard({ project }: ProjectCardProps) {
         {project.repoUrl && (
           <Button asChild variant="outline" size="sm" className="w-full sm:w-auto">
             <Link href={project.repoUrl} target="_blank" rel="noopener noreferrer">
-              <Github className="mr-2 h-4 w-4" /> GitHub
+              <FiGithub className="mr-2 h-4 w-4" /> GitHub
             </Link>
           </Button>
         )}
         {project.liveUrl && (
           <Button asChild variant="secondary" size="sm" className="w-full sm:w-auto">
             <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-              <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
+              <FiExternalLink className="mr-2 h-4 w-4" /> Live Demo
             </Link>
           </Button>
         )}
          {project.youtubeVideoId && (
              <Button asChild variant="outline" size="sm" className="w-full sm:w-auto sm:hidden">
                 <Link href={`https://www.youtube.com/watch?v=${project.youtubeVideoId}`} target="_blank" rel="noopener noreferrer">
-                    <Video className="mr-2 h-4 w-4" /> Watch Video
+                    <FiVideo className="mr-2 h-4 w-4" /> Watch Video
                 </Link>
             </Button>
          )}

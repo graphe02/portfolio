@@ -314,7 +314,7 @@ export default function TablatureEditorPage() {
       <main className="flex-grow container mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
         <div className="mb-6">
           <Button asChild variant="outline" size="sm">
-            <Link href="/showcase?section=guitar">
+            <Link href="/guitar">
               <ArrowLeft className="mr-2 h-4 w-4" /> Back to Guitar Videos
             </Link>
           </Button>

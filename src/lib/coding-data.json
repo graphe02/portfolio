@@ -18,5 +18,15 @@
         "liveUrl": "",
         "youtubeVideoId": "",
         "imageUrl": ""
+    },
+    {
+        "id": "coding_1750643685991_3",
+        "title": "Decor Maps",
+        "description": "Developed a web app for users to discover and rate decorated houses using Google Maps API.",
+        "technologies": ["Next.js", "MUI", "Prisma", "PostgreSQL", "Google Maps API"],
+        "repoUrl": "https://github.com/CSC307Fall2023/Team3",
+        "liveUrl": "",
+        "youtubeVideoId": "",
+        "imageUrl": ""
     }
 ]

@@ -6,18 +6,23 @@ import { useSearchParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
 export function AppHeader() {
-  const searchParams = useSearchParams();
   const pathname = usePathname();
 
   const getActiveSection = () => {
     if (pathname === '/') { // Root is now the About page
       return 'about';
     }
-    if (pathname === '/showcase') {
-      return searchParams.get('section') || 'guitar'; // Default to guitar on showcase page
+    if (pathname === '/guitar') {
+      return 'guitar';
+    }
+    if (pathname === '/projects') {
+      return 'projects';
+    }
+    if (pathname === '/gaming') {
+      return 'gaming';
     }
     if (pathname.startsWith('/tab/')) {
-        return 'guitar'; // Keep guitar active when viewing a tab
+      return 'guitar'; // Keep guitar active when viewing a tab
     }
     return ''; 
   };
@@ -37,20 +42,20 @@ export function AppHeader() {
         <Link href="/" className="flex items-center gap-2"> {/* Logo/Title links to About page (root) */}
           <VenetianMask className="h-8 w-8 text-primary" />
           <span className="text-2xl font-headline font-bold text-foreground">
-            Personal Showcase
+            Daniel's Odds and Ends
           </span>
         </Link>
         <nav className="flex items-center gap-1 sm:gap-2">
           <Link href="/" className={navLinkClasses('about')}> {/* About link points to root */}
             <UserCircle className="h-4 w-4" /> About
           </Link>
-          <Link href="/showcase?section=guitar" className={navLinkClasses('guitar')}>
+          <Link href="/guitar" className={navLinkClasses('guitar')}>
             <Music2 className="h-4 w-4" /> Guitar
           </Link>
-          <Link href="/showcase?section=coding" className={navLinkClasses('coding')}>
+          <Link href="/projects" className={navLinkClasses('projects')}>
             <FolderOpen className="h-4 w-4" /> Projects
           </Link>
-          <Link href="/showcase?section=gaming" className={navLinkClasses('gaming')}>
+          <Link href="/gaming" className={navLinkClasses('gaming')}>
             <Gamepad2 className="h-4 w-4" /> Gaming
           </Link>
         </nav>

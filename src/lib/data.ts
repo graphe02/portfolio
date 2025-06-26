@@ -9,7 +9,7 @@ export interface TablatureItem {
   title: string;
   artist: string;
   description: string;
-  asciiContent: string;
+  asciiContent?: string;
   difficulty: 'Easy' | 'Medium' | 'Hard';
 }
 
@@ -19,6 +19,7 @@ export interface guitarItem {
   description: string;
   youtubeVideoId: string;
   tablatureId?: string; 
+  googleDriveUrl?: string;
 }
 
 export interface gamingItem {
