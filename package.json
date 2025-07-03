@@ -9,7 +9,6 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "generate-data": "node scripts/generate-data.js",
-    "grab-gaming": "node scripts/grab-gaming-rss.js",
     "grab-guitar": "node scripts/grab-guitar-rss.js"
   },
   "dependencies": {

@@ -6,8 +6,7 @@ const { spawn } = require('child_process');
 
 // Configuration: Add new scripts here to include them in data generation
 const SCRIPTS_TO_RUN = [
-  'scripts/grab-guitar-rss.js',
-  'scripts/grab-gaming-rss.js'
+  'scripts/grab-guitar-rss.js'
   // Add new scripts here as needed:
   // 'scripts/grab-blog-rss.js',
   // 'scripts/grab-podcast-rss.js',
@@ -17,11 +16,9 @@ const SCRIPTS_TO_RUN = [
 function readExistingData() {
   const guitarPath = path.join(process.cwd(), 'src/lib/guitar-data.json');
   const codingPath = path.join(process.cwd(), 'src/lib/coding-data.json');
-  const gamingPath = path.join(process.cwd(), 'src/lib/gaming-data.json');
   
   let guitarData = [];
   let codingData = [];
-  let gamingData = [];
   
   try {
     if (fs.existsSync(guitarPath)) {
@@ -41,19 +38,9 @@ function readExistingData() {
     console.warn('Error reading coding-data.json:', error);
   }
   
-  try {
-    if (fs.existsSync(gamingPath)) {
-      gamingData = JSON.parse(fs.readFileSync(gamingPath, 'utf8'));
-      console.log('Found existing gaming-data.json');
-    }
-  } catch (error) {
-    console.warn('Error reading gaming-data.json:', error);
-  }
-  
   return {
     guitarVideos: guitarData,
-    codingProjects: codingData,
-    gamingVideos: gamingData
+    codingProjects: codingData
   };
 }
 
@@ -91,21 +78,19 @@ async function writeDataToFiles() {
   // Start with existing data from separate JSON files
   const data = readExistingData();
   
-  // Run both RSS grabbers
+  // Run RSS grabber
   try {
     await runScript('scripts/grab-guitar-rss.js');
-    await runScript('scripts/grab-gaming-rss.js');
   } catch (error) {
-    console.warn('One or more RSS grabbers failed, continuing with existing data:', error.message);
+    console.warn('RSS grabber failed, continuing with existing data:', error.message);
   }
   
-  // Read the updated data after RSS grabbers have run
+  // Read the updated data after RSS grabber has run
   const updatedData = readExistingData();
   
   console.log('Data generation completed!');
   console.log(`- guitar-data.json: ${updatedData.guitarVideos.length} items`);
   console.log(`- coding-data.json: ${updatedData.codingProjects.length} items`);
-  console.log(`- gaming-data.json: ${updatedData.gamingVideos.length} items`);
 }
 
 async function main() {
