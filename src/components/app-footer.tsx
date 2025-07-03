@@ -1,3 +1,5 @@
+import { PageViewCounter } from './page-view-counter';
+
 export function AppFooter() {
   return (
     <footer className="bg-muted border-t border-border py-8 text-center">
@@ -8,6 +10,9 @@ export function AppFooter() {
         <p className="text-xs text-muted-foreground mt-1">
           Built with Next.js, Tailwind CSS, and ShadCN UI.
         </p>
+        <div className="mt-2">
+          <PageViewCounter />
+        </div>
       </div>
     </footer>
   );

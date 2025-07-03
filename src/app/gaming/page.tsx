@@ -1,6 +1,6 @@
 "use client";
 
-import { AppHeader } from '@/components/app-header';
+
 import { AppFooter } from '@/components/app-footer';
 import { VideoCard } from '@/components/video-card';
 import { gamingVideos } from '@/lib/data';
@@ -9,8 +9,6 @@ import { Gamepad2 } from 'lucide-react';
 export default function GamingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <AppHeader />
-      
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Gaming Videos</h1>

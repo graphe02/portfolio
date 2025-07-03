@@ -1,6 +1,6 @@
 "use client";
 
-import { AppHeader } from '@/components/app-header';
+
 import { AppFooter } from '@/components/app-footer';
 import { ProjectCard } from '@/components/project-card';
 import { projects } from '@/lib/data';
@@ -9,8 +9,6 @@ import { FolderOpen } from 'lucide-react';
 export default function ProjectsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <AppHeader />
-      
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Projects</h1>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { AppHeader } from '@/components/app-header';
+
 import { AppFooter } from '@/components/app-footer';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -310,7 +310,6 @@ export default function TablatureEditorPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground font-body">
-      <AppHeader />
       <main className="flex-grow container mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
         <div className="mb-6">
           <Button asChild variant="outline" size="sm">
