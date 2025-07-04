@@ -1,7 +1,7 @@
 "use client";
 
-
 import { AppFooter } from '@/components/app-footer';
+import { PageViewCounter } from '@/components/page-view-counter';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -61,7 +61,7 @@ export default function AboutPage() {
           <CardContent className="space-y-6 text-lg">
             <div className="flex justify-center mb-8">
               <Image
-                src="/pfp.jpg"
+                src="/pfp3.jpg"
                 alt="Daniel's Profile Picture"
                 width={200}
                 height={200}
@@ -113,6 +113,11 @@ export default function AboutPage() {
                   );
                 })}
               </div>
+            </div>
+
+            {/* Page View Counter */}
+            <div className="pt-6 border-t border-border">
+              <PageViewCounter />
             </div>
           </CardContent>
         </Card>

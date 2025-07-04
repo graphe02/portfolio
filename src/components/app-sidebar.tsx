@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { Music2, Code2, Gamepad2, UserCircle, FolderOpen } from 'lucide-react';
 import { useSearchParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';

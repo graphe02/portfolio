@@ -4,7 +4,7 @@
         "title": "Personal Website",
         "description": "My personal website built with Next.js, Tailwind CSS, and Shadcn UI.",
         "technologies": ["Next.js", "Tailwind CSS", "Shadcn UI"],
-        "imageUrl": ""
+        "imageUrl": "/project-thumbnails/portfolio.jpeg"
     },
     {
         "id": "1",

@@ -1,7 +1,8 @@
 "use client";
 
 import Link from 'next/link';
-import { VenetianMask, Menu, X } from 'lucide-react';
+import Image from 'next/image';
+import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface AppHeaderProps {
@@ -29,7 +30,13 @@ export function AppHeader({ isSidebarOpen, onToggleSidebar }: AppHeaderProps) {
       {/* Center - Logo/Title */}
       <div className="flex-1 flex justify-center">
         <Link href="/" className="flex items-center gap-3">
-          <VenetianMask className="h-8 w-8 text-primary" />
+          <Image
+            src="/logo.png"
+            alt="Daniel's Logo"
+            width={32}
+            height={32}
+            className="h-8 w-8"
+          />
           <span className="text-xl font-headline font-bold text-foreground">
             Daniel's Odds and Ends
           </span>
