@@ -1,6 +1,6 @@
 "use client";
 
-import { AppHeader } from '@/components/app-header';
+
 import { AppFooter } from '@/components/app-footer';
 import { VideoCard } from '@/components/video-card';
 import { guitarVideos } from '@/lib/data';
@@ -11,8 +11,6 @@ import Link from 'next/link';
 export default function GuitarPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <AppHeader />
-      
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Guitar Videos</h1>
@@ -20,7 +18,7 @@ export default function GuitarPage() {
             Explore my guitar covers, tutorials, and performances
           </p>
           
-          {/* Large centered Edit Tablatures button */}
+          {/* Large centered Edit Tablatures button
           <div className="flex justify-center mb-8">
             <Button asChild size="lg" className="w-full max-w-4xl h-16 text-xl font-semibold">
               <Link href="/tab/editor">
@@ -28,7 +26,7 @@ export default function GuitarPage() {
                 Edit Tablatures
               </Link>
             </Button>
-          </div>
+          </div> */}
         </div>
         
         <div className="space-y-6">

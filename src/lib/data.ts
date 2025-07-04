@@ -2,7 +2,6 @@ import tab1 from './tablatures/tab1.json';
 import tab2 from './tablatures/tab2.json';
 import guitarData from './guitar-data.json';
 import codingData from './coding-data.json';
-import gamingData from './gaming-data.json';
 
 export interface TablatureItem {
   id: string;
@@ -22,13 +21,6 @@ export interface guitarItem {
   googleDriveUrl?: string;
 }
 
-export interface gamingItem {
-  id: string;
-  title: string;
-  description: string;
-  youtubeVideoId: string;
-}
-
 export interface ProjectItem {
   id: string;
   title: string;
@@ -43,7 +35,6 @@ export interface ProjectItem {
 // Import data from separate JSON files
 export const guitarVideos: guitarItem[] = guitarData;
 export const projects: ProjectItem[] = codingData;
-export const gamingVideos: gamingItem[] = gamingData;
 
 // Import tablatures
 export const tablatures: TablatureItem[] = [

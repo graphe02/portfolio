@@ -1,32 +1,43 @@
 [
     {
-        "id": "coding_1750643685991_0",
+        "id": "0",
         "title": "Personal Website",
         "description": "My personal website built with Next.js, Tailwind CSS, and Shadcn UI.",
         "technologies": ["Next.js", "Tailwind CSS", "Shadcn UI"],
-        "repoUrl": "https://github.com/graphe02/portfolio",
-        "liveUrl": "",
-        "youtubeVideoId": "",
-        "imageUrl": ""
+        "imageUrl": "/project-thumbnails/portfolio.jpeg"
     },
     {
-        "id": "coding_1750643685991_2",
+        "id": "1",
         "title": "Youtube Cloud",
         "description": "Cloud storage by leveraging YouTube's data center.",
         "technologies": ["Python"],
         "repoUrl": "https://github.com/dyi03/youTubeCloud",
         "liveUrl": "",
         "youtubeVideoId": "",
-        "imageUrl": ""
+        "imageUrl": "/project-thumbnails/youtubecloud.png"
     },
     {
-        "id": "coding_1750643685991_3",
+        "id": "2",
         "title": "Decor Maps",
         "description": "Developed a web app for users to discover and rate decorated houses using Google Maps API.",
         "technologies": ["Next.js", "MUI", "Prisma", "PostgreSQL", "Google Maps API"],
         "repoUrl": "https://github.com/CSC307Fall2023/Team3",
         "liveUrl": "",
         "youtubeVideoId": "",
-        "imageUrl": ""
+        "imageUrl": "/project-thumbnails/decormaps.png"
+    },
+    {
+        "id": "3",
+        "title": "Distributed K-Nearest Neighbor",
+        "description": "Available upon request.",
+        "technologies": ["Java/Scala", "Git", "Apache Spark/Hadoop"],
+        "imageUrl": "/project-thumbnails/distributedknn.png"
+    },
+    {
+        "id": "4",
+        "title": "Chat",
+        "description": "Available upon request.",
+        "technologies": ["C"],
+        "imageUrl": "/project-thumbnails/chat.png"
     }
 ]
