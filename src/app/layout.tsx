@@ -4,12 +4,12 @@ import { Toaster } from "@/components/ui/toaster"
 import { LayoutWrapper } from "@/components/layout-wrapper"
 
 export const metadata: Metadata = {
-  title: 'Personal Showcase',
-  description: 'A personal showcase of projects and content.',
+  title: 'lifeunderday',
+  description: 'Daniel\'s Odds & Ends',
   icons: {
     icon: [
-      { url: '/logo.png', type: 'image/png' },
       { url: '/favicon.ico', type: 'image/x-icon' },
+      { url: '/logobg.png', type: 'image/png' },
     ],
     shortcut: '/logo.png',
     apple: '/logo.png',
@@ -27,10 +27,9 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap" rel="stylesheet" />
-        <link rel="icon" href="/logo.png?v=2" type="image/png" />
-        <link rel="shortcut icon" href="/logo.png?v=2" type="image/png" />
-        <link rel="apple-touch-icon" href="/logo.png?v=2" />
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="/favicon.ico?v=4" type="image/x-icon" />
+        <link rel="shortcut icon" href="/logo.png?v=4" type="image/png" />
+        <link rel="apple-touch-icon" href="/logo.png?v=4" />
       </head>
       <body className="font-body antialiased">
         <LayoutWrapper>
