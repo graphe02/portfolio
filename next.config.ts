@@ -27,16 +27,20 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 60,
   },
   experimental: {
-    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons', 'react-icons'],
   },
   compress: true,
   poweredByHeader: false,
   generateEtags: false,
   reactStrictMode: true,
-  swcMinify: true,
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+  // Performance optimizations
+  swcMinify: true,
+  output: 'standalone',
+  // Enable static optimization
+  trailingSlash: false,
   headers: async () => {
     return [
       {
@@ -54,6 +58,10 @@ const nextConfig: NextConfig = {
             key: 'X-XSS-Protection',
             value: '1; mode=block',
           },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
         ],
       },
       {
@@ -62,6 +70,15 @@ const nextConfig: NextConfig = {
           {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/api/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-cache, no-store, must-revalidate',
           },
         ],
       },

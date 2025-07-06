@@ -1,5 +1,3 @@
-"use client";
-
 import { AppFooter } from '@/components/app-footer';
 import { PageViewCounter } from '@/components/page-view-counter';
 import Image from 'next/image';
@@ -45,7 +43,7 @@ export default function AboutPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground font-body">
       <main className="flex-grow container mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl sm:text-5xl font-headline font-bold mb-8 sm:mb-12 text-center text-primary animate-fade-in-down">
+        <h1 className="text-4xl sm:text-5xl font-headline font-bold mb-8 sm:mb-12 text-center text-primary">
           About Me
         </h1>
         <Card className="w-full max-w-3xl mx-auto shadow-lg">
@@ -60,7 +58,9 @@ export default function AboutPage() {
                 width={200}
                 height={200}
                 className="rounded-full shadow-md"
-                data-ai-hint="profile person"
+                priority
+                placeholder="blur"
+                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
               />
             </div>
             <p>
