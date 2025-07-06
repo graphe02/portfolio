@@ -15,7 +15,7 @@ export default function GuitarPage() {
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Guitar Videos</h1>
           <p className="text-lg text-gray-600 mb-6">
-            Explore my guitar covers, tutorials, and performances
+            Explore my guitar demos and covers
           </p>
           
           {/* Large centered Edit Tablatures button

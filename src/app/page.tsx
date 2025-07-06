@@ -29,12 +29,6 @@ export default function AboutPage() {
       color: 'hover:bg-red-600 hover:text-white'
     },
     {
-      name: 'Gaming',
-      url: 'https://youtube.com/@graphe0292',
-      icon: FiYoutube,
-      color: 'hover:bg-red-600 hover:text-white'
-    },
-    {
       name: 'GitHub',
       url: 'https://github.com/graphe02',
       icon: FiGithub,

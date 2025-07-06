@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Music2, Code2, Gamepad2, UserCircle, FolderOpen } from 'lucide-react';
+import { Music2, Code2, UserCircle, FolderOpen, Construction } from 'lucide-react';
 import { useSearchParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
@@ -24,8 +24,8 @@ export function AppSidebar({ isOpen, onClose }: AppSidebarProps) {
     if (pathname === '/projects') {
       return 'projects';
     }
-    if (pathname === '/gaming') {
-      return 'gaming';
+    if (pathname === '/wip') {
+      return 'wip';
     }
     if (pathname.startsWith('/tab/')) {
       return 'guitar'; // Keep guitar active when viewing a tab
@@ -71,9 +71,9 @@ export function AppSidebar({ isOpen, onClose }: AppSidebarProps) {
             <FolderOpen className="h-5 w-5" />
             <span>Projects</span>
           </Link>
-          <Link href="/gaming" className={navLinkClasses('gaming')} onClick={onClose}>
-            <Gamepad2 className="h-5 w-5" />
-            <span>Gaming</span>
+          <Link href="/wip" className={navLinkClasses('wip')} onClick={onClose}>
+            <Construction className="h-5 w-5" />
+            <span>WIP</span>
           </Link>
         </nav>
       </aside>
