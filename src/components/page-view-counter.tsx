@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Calendar, Users } from 'lucide-react';
 
 interface PageViewCounterProps {
@@ -19,41 +19,47 @@ export function PageViewCounter({ resetCount = false }: PageViewCounterProps) {
   });
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const trackView = async () => {
-      try {
-        // Track the view
-        const response = await fetch('/api/views', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+  const trackView = useCallback(async () => {
+    try {
+      // Track the view
+      const response = await fetch('/api/views', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-        if (response.ok) {
-          const data = await response.json();
-          if (data.success) {
-            setViewStats({
-              totalUnique: data.stats.totalUnique,
-              weekly: data.stats.weekly
-            });
-          }
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          setViewStats({
+            totalUnique: data.stats.totalUnique,
+            weekly: data.stats.weekly
+          });
         }
-      } catch (error) {
-        console.error('Error tracking view:', error);
-        // Fallback to showing 0 if API fails
-        setViewStats({ totalUnique: 0, weekly: 0 });
-      } finally {
-        setLoading(false);
       }
-    };
+    } catch (error) {
+      console.error('Error tracking view:', error);
+      // Fallback to showing 0 if API fails
+      setViewStats({ totalUnique: 0, weekly: 0 });
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
+  useEffect(() => {
     if (!resetCount) {
-      trackView();
+      // Use requestIdleCallback for better performance
+      if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(() => trackView());
+      } else {
+        // Fallback for browsers that don't support requestIdleCallback
+        setTimeout(trackView, 0);
+      }
     } else {
       setLoading(false);
     }
-  }, [resetCount]);
+  }, [resetCount, trackView]);
 
   if (loading) {
     return (
