@@ -38,7 +38,7 @@ export function AppHeader({ isSidebarOpen, onToggleSidebar }: AppHeaderProps) {
             className="h-8 w-8"
           />
           <span className="text-xl font-headline font-bold text-foreground">
-            Daniel's Odds and Ends
+            lifeunderday
           </span>
         </Link>
       </div>

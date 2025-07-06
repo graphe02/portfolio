@@ -8,8 +8,6 @@ const { spawn } = require('child_process');
 const SCRIPTS_TO_RUN = [
   'scripts/grab-guitar-rss.js'
   // Add new scripts here as needed:
-  // 'scripts/grab-blog-rss.js',
-  // 'scripts/grab-podcast-rss.js',
 ];
 
 // Function to read existing data from separate JSON files
