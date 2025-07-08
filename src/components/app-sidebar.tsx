@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Music2, Code2, UserCircle, FolderOpen, Construction } from 'lucide-react';
+import { Music2, Code2, UserCircle, FolderOpen, Construction, Star } from 'lucide-react';
 import { useSearchParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
@@ -18,11 +18,14 @@ export function AppSidebar({ isOpen, onClose }: AppSidebarProps) {
     if (pathname === '/') { // Root is now the About page
       return 'about';
     }
-    if (pathname === '/guitar') {
-      return 'guitar';
-    }
     if (pathname === '/projects') {
       return 'projects';
+    }
+    if (pathname === '/lifeunderday') {
+      return 'lifeunderday';
+    }
+    if (pathname === '/guitar') {
+      return 'guitar';
     }
     if (pathname === '/wip') {
       return 'wip';
@@ -62,6 +65,10 @@ export function AppSidebar({ isOpen, onClose }: AppSidebarProps) {
           <Link href="/" className={navLinkClasses('about')} onClick={onClose}>
             <UserCircle className="h-5 w-5" />
             <span>About</span>
+          </Link>
+          <Link href="/lifeunderday" className={navLinkClasses('lifeunderday')} onClick={onClose}>
+            <Star className="h-5 w-5" />
+            <span>lifeunderday</span>
           </Link>
           <Link href="/guitar" className={navLinkClasses('guitar')} onClick={onClose}>
             <Music2 className="h-5 w-5" />

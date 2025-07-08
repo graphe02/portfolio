@@ -53,7 +53,7 @@ export default function AboutPage() {
           <CardContent className="space-y-6 text-lg">
             <div className="flex justify-center mb-8">
               <Image
-                src="/pfp3.jpg"
+                src="/pfp.jpg"
                 alt="Daniel's Profile Picture"
                 width={200}
                 height={200}

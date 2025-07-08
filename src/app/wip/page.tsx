@@ -42,10 +42,22 @@ export default function WIPPage() {
                 Guitar and my voice
               </p>
               <p className="text-sm text-gray-500">
-                Status: 
+                Status: Check out my youtube channel!
               </p>
             </div>
             
+            <Separator />
+
+            <div>
+              <h3 className="text-xl font-semibold mb-2">lifeunderday</h3>
+              <p className="text-gray-600 mb-2">
+                The glorious evolution...
+              </p>
+              <p className="text-sm text-gray-500">
+                Status: Hopefully up to date
+              </p>
+            </div>
+
             <Separator />
 
             <div>
