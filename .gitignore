@@ -45,4 +45,4 @@ firebase-debug.log
 firestore-debug.log
 
 # page views data
-# data/page-views.json
+data/page-views.json
