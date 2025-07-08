@@ -47,7 +47,7 @@ export default function LifeUnderDayPage() {
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                 The logo for my website is a combination of life and day, leaves wrapping around the sun.
-                Big thanks to my friend, [] for designing this logo for me.
+                Big thanks to my friend for designing this logo for me.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                 Together, they represent the idea of life existing under the light of day - a metaphor for 
