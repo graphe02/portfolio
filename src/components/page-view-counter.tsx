@@ -1,21 +1,19 @@
 "use client";
 
 import { useState, useEffect, useCallback } from 'react';
-import { Calendar, Users } from 'lucide-react';
+import { Eye } from 'lucide-react';
 
 interface PageViewCounterProps {
   resetCount?: boolean;
 }
 
 interface ViewStats {
-  totalUnique: number;
-  weekly: number;
+  totalViews: number;
 }
 
 export function PageViewCounter({ resetCount = false }: PageViewCounterProps) {
   const [viewStats, setViewStats] = useState<ViewStats>({
-    totalUnique: 0,
-    weekly: 0
+    totalViews: 0
   });
   const [loading, setLoading] = useState(true);
 
@@ -33,15 +31,14 @@ export function PageViewCounter({ resetCount = false }: PageViewCounterProps) {
         const data = await response.json();
         if (data.success) {
           setViewStats({
-            totalUnique: data.stats.totalUnique,
-            weekly: data.stats.weekly
+            totalViews: data.stats.totalViews
           });
         }
       }
     } catch (error) {
       console.error('Error tracking view:', error);
       // Fallback to showing 0 if API fails
-      setViewStats({ totalUnique: 0, weekly: 0 });
+      setViewStats({ totalViews: 0 });
     } finally {
       setLoading(false);
     }
@@ -65,8 +62,8 @@ export function PageViewCounter({ resetCount = false }: PageViewCounterProps) {
     return (
       <div className="flex flex-col items-center gap-2 text-xs text-muted-foreground">
         <div className="flex items-center gap-1">
-          <Users className="h-3 w-3" />
-          <span>Loading...</span>
+          <Eye className="h-3 w-3" />
+          <span>...</span>
         </div>
       </div>
     );
@@ -75,12 +72,8 @@ export function PageViewCounter({ resetCount = false }: PageViewCounterProps) {
   return (
     <div className="flex flex-col items-center gap-2 text-xs text-muted-foreground">
       <div className="flex items-center gap-1">
-        <Users className="h-3 w-3" />
-        <span>{viewStats.totalUnique.toLocaleString()} today</span>
-      </div>
-      <div className="flex items-center gap-1">
-        <Calendar className="h-3 w-3" />
-        <span>{viewStats.weekly.toLocaleString()} this week</span>
+        <Eye className="h-3 w-3" />
+        <span>{viewStats.totalViews.toLocaleString()}</span>
       </div>
     </div>
   );
