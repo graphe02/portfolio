@@ -12,7 +12,7 @@ interface AppHeaderProps {
 
 export function AppHeader({ isSidebarOpen, onToggleSidebar }: AppHeaderProps) {
   return (
-    <header className="bg-card border-b border-border sticky top-0 z-50 h-16 flex items-center justify-between px-4">
+    <header className="bg-card border-b border-border fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4">
       {/* Left side - Sidebar toggle */}
       <Button
         variant="ghost"
