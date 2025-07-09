@@ -26,43 +26,66 @@ async function writePageViewData(data: PageViewData): Promise<void> {
   await fs.writeFile(DATA_FILE_PATH, JSON.stringify(data, null, 2), 'utf-8');
 }
 
+async function getViews(): Promise<PageViewData> {
+  return await readPageViewData();
+}
+
+async function incrementView(): Promise<PageViewData> {
+  // Read current data
+  const pageViewData = await readPageViewData();
+  
+  // Increment total views
+  pageViewData.totalViews += 1;
+  pageViewData.lastUpdated = new Date().toISOString();
+  
+  // Write updated data back to file
+  await writePageViewData(pageViewData);
+  
+  return pageViewData;
+}
+
 export async function POST(request: NextRequest) {
   try {
-    // Read current data
-    const pageViewData = await readPageViewData();
+    const updatedData = await incrementView();
     
-    // Increment total views
-    pageViewData.totalViews += 1;
-    pageViewData.lastUpdated = new Date().toISOString();
-    
-    // Write updated data back to file
-    await writePageViewData(pageViewData);
-    
-    return NextResponse.json({
-      success: true,
-      stats: {
-        totalViews: pageViewData.totalViews
-      }
+    // Return just the number as plain text
+    return new NextResponse(updatedData.totalViews.toString(), {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/plain',
+      },
     });
     
   } catch (error) {
     console.error('Error tracking view:', error);
-    return NextResponse.json({ success: false, error: 'Failed to track view' }, { status: 500 });
+    return new NextResponse('0', {
+      status: 500,
+      headers: {
+        'Content-Type': 'text/plain',
+      },
+    });
   }
 }
 
 export async function GET() {
   try {
-    const pageViewData = await readPageViewData();
+    const pageViewData = await getViews();
     
-    return NextResponse.json({
-      stats: {
-        totalViews: pageViewData.totalViews
-      }
+    // Return just the number as plain text
+    return new NextResponse(pageViewData.totalViews.toString(), {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/plain',
+      },
     });
     
   } catch (error) {
     console.error('Error getting stats:', error);
-    return NextResponse.json({ error: 'Failed to get stats' }, { status: 500 });
+    return new NextResponse('0', {
+      status: 500,
+      headers: {
+        'Content-Type': 'text/plain',
+      },
+    });
   }
 } 
