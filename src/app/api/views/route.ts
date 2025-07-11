@@ -1,60 +1,49 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
+import { getOrCreateVisitor, getTotalVisits, updateStats } from '@/lib/db';
+import { randomUUID } from 'crypto';
 
-interface PageViewData {
-  totalViews: number;
-  lastUpdated: string;
+// Generate a unique visitor ID
+function generateVisitorId(): string {
+  return randomUUID();
 }
 
-const DATA_FILE_PATH = path.join(process.cwd(), 'data', 'page-views.json');
-
-async function readPageViewData(): Promise<PageViewData> {
-  try {
-    const data = await fs.readFile(DATA_FILE_PATH, 'utf-8');
-    return JSON.parse(data);
-  } catch (error) {
-    // If file doesn't exist or is invalid, return default structure
-    return {
-      totalViews: 0,
-      lastUpdated: new Date().toISOString()
-    };
-  }
-}
-
-async function writePageViewData(data: PageViewData): Promise<void> {
-  await fs.writeFile(DATA_FILE_PATH, JSON.stringify(data, null, 2), 'utf-8');
-}
-
-async function getViews(): Promise<PageViewData> {
-  return await readPageViewData();
-}
-
-async function incrementView(): Promise<PageViewData> {
-  // Read current data
-  const pageViewData = await readPageViewData();
-  
-  // Increment total views
-  pageViewData.totalViews += 1;
-  pageViewData.lastUpdated = new Date().toISOString();
-  
-  // Write updated data back to file
-  await writePageViewData(pageViewData);
-  
-  return pageViewData;
+// Get visitor ID from cookie or generate new one
+function getVisitorId(request: NextRequest): string {
+  const visitorId = request.cookies.get('visitor_id')?.value;
+  return visitorId || generateVisitorId();
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const updatedData = await incrementView();
+    const visitorId = getVisitorId(request);
     
-    // Return just the number as plain text
-    return new NextResponse(updatedData.totalViews.toString(), {
+    // Track the visit in database
+    getOrCreateVisitor(visitorId);
+    updateStats();
+    
+    // Get total visits
+    const totalVisits = getTotalVisits();
+    
+    // Create response with cookie
+    const response = new NextResponse(totalVisits.toString(), {
       status: 200,
       headers: {
         'Content-Type': 'text/plain',
       },
     });
+    
+    // Set cookie if it doesn't exist (first visit)
+    if (!request.cookies.get('visitor_id')) {
+      response.cookies.set('visitor_id', visitorId, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        maxAge: 60 * 60 * 24 * 365, // 1 year
+        path: '/',
+      });
+    }
+    
+    return response;
     
   } catch (error) {
     console.error('Error tracking view:', error);
@@ -69,10 +58,10 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   try {
-    const pageViewData = await getViews();
+    const { getTotalVisits } = await import('@/lib/db');
+    const totalVisits = getTotalVisits();
     
-    // Return just the number as plain text
-    return new NextResponse(pageViewData.totalViews.toString(), {
+    return new NextResponse(totalVisits.toString(), {
       status: 200,
       headers: {
         'Content-Type': 'text/plain',

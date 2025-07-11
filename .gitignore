@@ -44,5 +44,5 @@ next-env.d.ts
 firebase-debug.log
 firestore-debug.log
 
-# page views data
-data/page-views.json
+# database files
+data/visitors.db
