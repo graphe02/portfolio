@@ -7,8 +7,19 @@ import { guitarVideos } from '@/lib/data';
 import { Music2, Edit3 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useMemo } from 'react';
 
 export default function GuitarPage() {
+  // Sort videos by ID timestamp (newest first)
+  const sortedVideos = useMemo(() => {
+    return [...guitarVideos].sort((a, b) => {
+      // Extract timestamp from ID (format: guitar_TIMESTAMP_INDEX)
+      const timestampA = parseInt(a.id.split('_')[1]);
+      const timestampB = parseInt(b.id.split('_')[1]);
+      return timestampB - timestampA; // Descending order (newest first)
+    });
+  }, [guitarVideos]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <main className="container mx-auto px-4 py-8">
@@ -34,9 +45,9 @@ export default function GuitarPage() {
             <Music2 className="h-6 w-6 text-red-500" />
             <h2 className="text-2xl font-bold">Guitar Videos</h2>
           </div>
-          {guitarVideos.length > 0 ? (
+          {sortedVideos.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {guitarVideos.map((video) => (
+              {sortedVideos.map((video) => (
                 <VideoCard key={video.id} video={video} />
               ))}
             </div>

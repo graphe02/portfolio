@@ -1,31 +1,26 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { guitarItem } from '@/lib/data';
-import { Play, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 
 interface VideoCardProps {
   video: guitarItem;
 }
 
 export function VideoCard({ video }: VideoCardProps) {
-  const thumbnailUrl = `https://img.youtube.com/vi/${video.youtubeVideoId}/maxresdefault.jpg`;
-  const fallbackThumbnailUrl = `https://img.youtube.com/vi/${video.youtubeVideoId}/hqdefault.jpg`;
+  const embedUrl = `https://www.youtube.com/embed/${video.youtubeVideoId}`;
   const videoUrl = `https://www.youtube.com/watch?v=${video.youtubeVideoId}`;
 
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-200">
-      <div className="relative aspect-video">
-        <img
-          src={thumbnailUrl}
-          alt={video.title}
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.src = fallbackThumbnailUrl;
-          }}
+      <div className="aspect-video">
+        <iframe
+          src={embedUrl}
+          title={video.title}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          className="w-full h-full"
         />
-        <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
-          <Play className="h-12 w-12 text-white drop-shadow-lg" />
-        </div>
       </div>
       <CardHeader className="pb-3">
         <CardTitle className="text-lg line-clamp-2">{video.title}</CardTitle>
