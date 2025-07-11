@@ -230,13 +230,14 @@ function mergeGuitarData(existingData, newItems) {
   let addedCount = 0;
   newItems.forEach(item => {
     if (!existingIds.has(item.youtubeVideoId)) {
-      mergedData.push(item);
+      // Add new items to the beginning of the array (top of the list)
+      mergedData.unshift(item);
       existingIds.add(item.youtubeVideoId);
       addedCount++;
     }
   });
   
-  console.log(`Added ${addedCount} new guitar videos`);
+  console.log(`Added ${addedCount} new guitar videos to the top of the list`);
   return mergedData;
 }
 
