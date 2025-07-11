@@ -4,45 +4,18 @@ import { useState, useEffect, useCallback } from 'react';
 import { Eye } from 'lucide-react';
 
 interface PageViewCounterProps {
-  resetCount?: boolean;
   className?: string;
   showIcon?: boolean;
   size?: 'small' | 'medium' | 'large' | 'xl';
 }
 
 export function PageViewCounter({ 
-  resetCount = false, 
   className = "flex flex-col items-center gap-2 text-xs text-muted-foreground",
   showIcon = true,
   size = 'small'
 }: PageViewCounterProps) {
   const [viewCount, setViewCount] = useState<number>(0);
   const [loading, setLoading] = useState(true);
-
-  const incrementView = useCallback(async () => {
-    try {
-      // POST to increment the view count
-      const response = await fetch('/api/views', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (response.ok) {
-        const countText = await response.text();
-        const count = parseInt(countText, 10);
-        if (!isNaN(count)) {
-          setViewCount(count);
-        }
-      }
-    } catch (error) {
-      console.error('Error incrementing view:', error);
-      setViewCount(0);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
 
   const getViewCount = useCallback(async () => {
     try {
@@ -70,22 +43,13 @@ export function PageViewCounter({
   }, []);
 
   useEffect(() => {
-    if (!resetCount) {
-      // POST to increment on main page
-      if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
-        (window as any).requestIdleCallback(() => incrementView());
-      } else {
-        setTimeout(incrementView, 0);
-      }
+    // Always use GET to just display the count
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(() => getViewCount());
     } else {
-      // GET to fetch count on other pages
-      if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
-        (window as any).requestIdleCallback(() => getViewCount());
-      } else {
-        setTimeout(getViewCount, 0);
-      }
+      setTimeout(getViewCount, 0);
     }
-  }, [resetCount, incrementView, getViewCount]);
+  }, [getViewCount]);
 
   const getSizeClasses = () => {
     switch (size) {

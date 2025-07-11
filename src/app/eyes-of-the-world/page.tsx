@@ -6,7 +6,9 @@ import { useState, useEffect } from 'react';
 
 export default function EyesOfTheWorldPage() {
   const [isEyesOpen, setIsEyesOpen] = useState(true);
+  const [refreshKey, setRefreshKey] = useState(0);
 
+  // Blinking eyes effect
   useEffect(() => {
     const interval = setInterval(() => {
       setIsEyesOpen(prev => !prev);
@@ -15,12 +17,20 @@ export default function EyesOfTheWorldPage() {
     return () => clearInterval(interval);
   }, []);
 
+  // Regular refresh for view counter
+  useEffect(() => {
+    const refreshInterval = setInterval(() => {
+      setRefreshKey(prev => prev + 1);
+    }, 30000); // Refresh every 30 seconds
+
+    return () => clearInterval(refreshInterval);
+  }, []);
+
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Full Screen Image */}
       <div className="fixed inset-0 z-0">
         <Image
-          // src="/bluemarble.jpg"
           src="/spinning.gif"
           alt="Eyes of the World"
           fill
@@ -53,7 +63,7 @@ export default function EyesOfTheWorldPage() {
         
         {/* View Counter */}
         <PageViewCounter 
-          resetCount={true} 
+          key={refreshKey}
           className="flex flex-col items-center gap-4 text-amber-50"
           showIcon={false}
           size="xl"
