@@ -1,65 +1,50 @@
 "use client";
 
+import Link from "next/link";
 
-import { AppFooter } from '@/components/app-footer';
-import { VideoCard } from '@/components/video-card';
-import { guitarVideos } from '@/lib/data';
-import { Music2, Edit3 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-import { useMemo } from 'react';
+import { AppFooter } from "@/components/app-footer";
+
+const LINKS = [
+  {
+    href: "/guitar/videos",
+    title: "Guitar Videos",
+    description: "Watch performances, demos, and improvisations sorted by newest first.",
+  },
+  {
+    href: "/guitar/chordfinder",
+    title: "Interactive Chord Finder",
+    description: "Tap out voicings on a virtual fretboard to identify chord names and intervals.",
+  },
+];
 
 export default function GuitarPage() {
-  // Sort videos by ID timestamp (newest first)
-  const sortedVideos = useMemo(() => {
-    return [...guitarVideos].sort((a, b) => {
-      // Extract timestamp from ID (format: guitar_TIMESTAMP_INDEX)
-      const timestampA = parseInt(a.id.split('_')[1]);
-      const timestampB = parseInt(b.id.split('_')[1]);
-      return timestampB - timestampA; // Descending order (newest first)
-    });
-  }, [guitarVideos]);
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <main className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Guitar Videos</h1>
-          <p className="text-lg text-gray-600 mb-6">
-            Explore my guitar demos and covers
+      <main className="container mx-auto px-4 py-16">
+        <header className="mx-auto max-w-3xl text-center">
+          <h1 className="text-4xl font-bold text-gray-900">Guitar Hub</h1>
+          <p className="mt-3 text-base text-gray-600">
+            Explore tools and videos that capture my guitar journey—from recorded tracks to
+            interactive practice helpers.
           </p>
-          
-          {/* Large centered Edit Tablatures button
-          <div className="flex justify-center mb-8">
-            <Button asChild size="lg" className="w-full max-w-4xl h-16 text-xl font-semibold">
-              <Link href="/tab/editor">
-                <Edit3 className="mr-3 h-6 w-6" />
-                Edit Tablatures
-              </Link>
-            </Button>
-          </div> */}
-        </div>
-        
-        <div className="space-y-6">
-          <div className="flex items-center gap-2 mb-6">
-            <Music2 className="h-6 w-6 text-red-500" />
-            <h2 className="text-2xl font-bold">Guitar Videos</h2>
-          </div>
-          {sortedVideos.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {sortedVideos.map((video) => (
-                <VideoCard key={video.id} video={video} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12">
-              <Music2 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-600">No guitar videos to display</p>
-            </div>
-          )}
-        </div>
+        </header>
+
+        <section className="mx-auto mt-12 grid max-w-4xl gap-6 md:grid-cols-2">
+          {LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="group rounded-2xl border border-gray-200 bg-white/90 p-6 shadow-sm transition hover:-translate-y-1 hover:border-gray-300 hover:shadow-md"
+            >
+              <h2 className="text-xl font-semibold text-gray-900 group-hover:text-red-500">
+                {link.title} →
+              </h2>
+              <p className="mt-2 text-sm text-gray-600">{link.description}</p>
+            </Link>
+          ))}
+        </section>
       </main>
-      
+
       <AppFooter />
     </div>
   );
