@@ -15,6 +15,11 @@ const LINKS = [
     title: "Interactive Chord Finder",
     description: "Tap out voicings on a virtual fretboard to identify chord names and intervals.",
   },
+  {
+    href: "/guitar/metronome",
+    title: "Metronome",
+    description: "Set BPM, choose time signatures, and tap tempo with a visual pulse.",
+  },
 ];
 
 export default function GuitarPage() {

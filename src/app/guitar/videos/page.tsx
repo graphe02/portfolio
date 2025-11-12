@@ -20,15 +20,16 @@ export default function GuitarVideosPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <main className="container mx-auto px-4 py-8">
-        <header className="mb-10 space-y-4">
+        <div className="flex justify-start">
           <Link
             href="/guitar"
             className="inline-flex items-center gap-2 rounded-full border border-border bg-background/80 px-3 py-1 text-xs font-medium text-primary shadow-sm transition hover:bg-primary hover:text-primary-foreground"
           >
-            <ArrowLeft className="h-4 w-4" />
             Back to Guitar Hub
           </Link>
+        </div>
 
+        <header className="mb-10 space-y-4">
           <div className="space-y-2">
             <h1 className="text-4xl font-bold text-gray-900">
               Guitar Videos Library

@@ -164,15 +164,15 @@ export default function ChordFinderPage() {
 
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-8 p-6">
-      <header className="space-y-4">
+      <div className="flex justify-start">
         <Link
           href="/guitar"
           className="inline-flex items-center gap-2 rounded-full border border-border bg-background/80 px-3 py-1 text-xs font-medium text-primary shadow-sm transition hover:bg-primary hover:text-primary-foreground"
         >
-            <ArrowLeft className="h-4 w-4" />
           Back to Guitar Hub
         </Link>
-
+      </div>
+      <header className="space-y-4">
         <div className="space-y-2">
           <h1 className="text-2xl font-semibold">Interactive Chord Finder</h1>
           <p className="text-xs text-muted-foreground">
