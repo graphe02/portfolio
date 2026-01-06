@@ -27,7 +27,7 @@ export default function GuitarPage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <main className="container mx-auto px-4 py-16">
         <header className="mx-auto max-w-3xl text-center">
-          <h1 className="text-4xl font-bold text-gray-900">Guitar Hub</h1>
+          <h1 className="text-4xl font-bold text-gray-900">Guitar Hub-WIP</h1>
           <p className="mt-3 text-base text-gray-600">
             Explore tools and videos that capture my guitar journey—from recorded tracks to
             interactive practice helpers.

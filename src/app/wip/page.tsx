@@ -37,7 +37,7 @@ export default function WIPPage() {
             {/* <Separator /> */}
 
             <div>
-              <h3 className="text-xl font-semibold mb-2">Always working on some song...</h3>
+              <h3 className="text-xl font-semibold mb-2">Maybe working on some song...</h3>
               <p className="text-gray-600 mb-2">
                 Guitar and my voice
               </p>
@@ -51,7 +51,7 @@ export default function WIPPage() {
             <div>
               <h3 className="text-xl font-semibold mb-2">lifeunderday</h3>
               <p className="text-gray-600 mb-2">
-                The glorious evolution...
+                Not too sure where the I want this to go, but everything in it's right place.
               </p>
               <p className="text-sm text-gray-500">
                 Status: Hopefully up to date
@@ -66,7 +66,7 @@ export default function WIPPage() {
                 Electrical + YOLO + STM32
               </p>
               <p className="text-sm text-gray-500">
-                Status: Stuck on figuring out a good algorithm
+                Status: Stuck on figuring out how to sync images to audio (is that even possible?)
               </p>
             </div>
             
@@ -90,7 +90,7 @@ export default function WIPPage() {
                 Flutter
               </p>
               <p className="text-sm text-gray-500">
-                Status: Can't figure out a good networking solution
+                Status: Can't figure out a good realtime networking solution
               </p>
             </div>
             
@@ -102,7 +102,7 @@ export default function WIPPage() {
                 C++, Raylib, TCP/UDP
               </p>
               <p className="text-sm text-gray-500">
-                Status: Preoccupied with other projects
+                Status: Raylib is kinda cool
               </p>
             </div>
             
@@ -114,7 +114,7 @@ export default function WIPPage() {
                 C++, Raylib, Calculus
               </p>
               <p className="text-sm text-gray-500">
-                Status: Figuring out a good way to implement equations for targets
+                Status: How does one implement 3d coordinates?
               </p>
             </div>
             
