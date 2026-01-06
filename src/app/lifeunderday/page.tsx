@@ -24,7 +24,7 @@ export default function LifeUnderDayPage() {
       src: "/seong.png",
       alt: "Seong",
       title: "星",
-      description: "This is the latter half of my first name, 星 (Seong). It means 'star' and is composed of two parts: 生 (life) and 日 (day). They are quite literally the letter life underneath the letter day."
+      description: "This is the latter half of my first name, 星 (Seong). It means 'star' and is composed of two parts: 生 (life) and 日 (day)."
     }
   ];
 
@@ -43,18 +43,22 @@ export default function LifeUnderDayPage() {
             <div className="text-center max-w-3xl mx-auto">
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                 As a 1st generation Korean American, I am proud of my heritage and culture.
-                "Life under day" is a phrase that captures the essence of my Korean name, 李俊星 (Yi Joon Seong). 
+                "lifeunderday" is a phrase that captures the essence of my Korean name, 李俊星 (Yi Joon Seong). 
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                 The logo for my website is a combination of life and day, leaves wrapping around the sun.
-                Big thanks to my friend for designing this logo for me.
-              </p>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                Together, they represent the idea of life existing under the light of day - a metaphor for 
-                how we are the eyes of the world and live in no particular way.
+                Big thanks to my friend for making this idea into a reality.
               </p>
             </div>
 
+            {/* Active Image Description */}
+            <div className="text-center border-t pt-6">
+              <h3 className="text-xl font-semibold mb-3">{images[activeImage].title}</h3>
+              <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
+                {images[activeImage].description}
+              </p>
+            </div>
+            
             {/* Images Side by Side */}
             <div className="grid grid-cols-3 gap-2 sm:gap-6">
               {images.map((image, index) => (
@@ -78,14 +82,7 @@ export default function LifeUnderDayPage() {
                 </div>
               ))}
             </div>
-
-            {/* Active Image Description */}
-            <div className="text-center border-t pt-6">
-              <h3 className="text-xl font-semibold mb-3">{images[activeImage].title}</h3>
-              <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
-                {images[activeImage].description}
-              </p>
-            </div>
+            
           </CardContent>
         </Card>
       </main>
