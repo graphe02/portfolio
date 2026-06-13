@@ -14,12 +14,11 @@ export function PageViewCounter({
   showIcon = true,
   size = 'small'
 }: PageViewCounterProps) {
-  const [viewCount, setViewCount] = useState<number>(0);
+  const [visitorCount, setVisitorCount] = useState<number>(0);
   const [loading, setLoading] = useState(true);
 
-  const getViewCount = useCallback(async () => {
+  const getVisitorCount = useCallback(async () => {
     try {
-      // GET to fetch the current count without incrementing
       const response = await fetch('/api/views', {
         method: 'GET',
         headers: {
@@ -31,25 +30,24 @@ export function PageViewCounter({
         const countText = await response.text();
         const count = parseInt(countText, 10);
         if (!isNaN(count)) {
-          setViewCount(count);
+          setVisitorCount(count);
         }
       }
     } catch (error) {
-      console.error('Error getting view count:', error);
-      setViewCount(0);
+      console.error('Error getting visitor count:', error);
+      setVisitorCount(0);
     } finally {
       setLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    // Always use GET to just display the count
     if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
-      (window as any).requestIdleCallback(() => getViewCount());
+      (window as any).requestIdleCallback(() => getVisitorCount());
     } else {
-      setTimeout(getViewCount, 0);
+      setTimeout(getVisitorCount, 0);
     }
-  }, [getViewCount]);
+  }, [getVisitorCount]);
 
   const getSizeClasses = () => {
     switch (size) {
@@ -78,7 +76,7 @@ export function PageViewCounter({
   return (
     <div className={className}>
       {showIcon && <Eye className="h-3 w-3" />}
-      <span className={getSizeClasses()}>{viewCount.toLocaleString()}</span>
+      <span className={getSizeClasses()}>{visitorCount.toLocaleString()}</span>
     </div>
   );
 } 

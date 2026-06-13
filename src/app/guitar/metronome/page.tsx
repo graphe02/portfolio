@@ -1,7 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { useEffect, useMemo, useRef, useState } from "react";
+
+import { AppFooter } from "@/components/app-footer";
+
+import chalk from "../chalkboard.module.css";
+import styles from "./metronome.module.css";
 
 const TIME_SIGNATURES = [
   { label: "1/4", beatsPerMeasure: 1, subdivisions: 1 },
@@ -10,14 +15,16 @@ const TIME_SIGNATURES = [
   { label: "4/4", beatsPerMeasure: 4, subdivisions: 4 },
 ] as const;
 
+type TimeSignature = (typeof TIME_SIGNATURES)[number];
+
 const MIN_BPM = 40;
 const MAX_BPM = 220;
-const MIN_DURATION_MINUTES = 1;
 const MAX_DURATION_MINUTES = 60;
 
 export default function MetronomePage() {
   const [bpm, setBpm] = useState(120);
-  const [activeSignature, setActiveSignature] = useState(TIME_SIGNATURES[3]);
+  const [playingBpm, setPlayingBpm] = useState(120);
+  const [activeSignature, setActiveSignature] = useState<TimeSignature>(TIME_SIGNATURES[3]);
   const [isRunning, setIsRunning] = useState(false);
   const [tapTimes, setTapTimes] = useState<number[]>([]);
   const [volume, setVolume] = useState(80);
@@ -31,6 +38,7 @@ export default function MetronomePage() {
   const subdivisionIndexRef = useRef(0);
   const endTimeRef = useRef<number | null>(null);
   const volumeRef = useRef(volume / 100);
+  const playOnStartRef = useRef(true);
 
   useEffect(() => {
     volumeRef.current = volume / 100;
@@ -38,6 +46,7 @@ export default function MetronomePage() {
 
   useEffect(() => {
     if (!isRunning) {
+      playOnStartRef.current = true;
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;
@@ -52,7 +61,7 @@ export default function MetronomePage() {
     const ctx = audioContextRef.current;
     if (!ctx) return;
 
-    const beatDurationMs = 60_000 / bpm;
+    const beatDurationMs = 60_000 / playingBpm;
     const subdivisionDurationMs = beatDurationMs / activeSignature.subdivisions;
 
     function playClick(subdivisionIndex: number) {
@@ -68,7 +77,9 @@ export default function MetronomePage() {
       envelope.connect(ctx.destination);
 
       const now = ctx.currentTime;
-      const targetGain = isPrimary ? volumeRef.current : Math.max(volumeRef.current * 0.6, 0.0001);
+      const targetGain = isPrimary
+        ? volumeRef.current
+        : Math.max(volumeRef.current * 0.6, 0.0001);
 
       envelope.gain.exponentialRampToValueAtTime(targetGain, now + 0.001);
       envelope.gain.exponentialRampToValueAtTime(0.0001, now + 0.08);
@@ -89,8 +100,12 @@ export default function MetronomePage() {
       subdivisionIndexRef.current = nextSubdivision;
     };
 
-    subdivisionIndexRef.current = 0;
-    tick();
+    if (playOnStartRef.current) {
+      subdivisionIndexRef.current = 0;
+      tick();
+      playOnStartRef.current = false;
+    }
+
     intervalRef.current = setInterval(tick, subdivisionDurationMs);
 
     return () => {
@@ -99,7 +114,7 @@ export default function MetronomePage() {
         intervalRef.current = null;
       }
     };
-  }, [isRunning, bpm, activeSignature]);
+  }, [isRunning, playingBpm, activeSignature]);
 
   useEffect(() => {
     if (!isRunning) {
@@ -132,7 +147,7 @@ export default function MetronomePage() {
         } else {
           setRemainingMs(remaining);
         }
-      }, 200);
+      }, 1000);
     } else {
       setRemainingMs(null);
     }
@@ -146,6 +161,10 @@ export default function MetronomePage() {
   }, [isRunning, durationMinutes]);
 
   const handleToggle = () => {
+    if (!isRunning) {
+      setPlayingBpm(bpm);
+    }
+
     setIsRunning((prev) => !prev);
     if (isRunning) {
       subdivisionIndexRef.current = 0;
@@ -158,6 +177,10 @@ export default function MetronomePage() {
     }
   };
 
+  const commitBpm = (value: number) => {
+    setPlayingBpm(value);
+  };
+
   const handleTap = () => {
     const now = performance.now();
     setTapTimes((prev) => {
@@ -167,9 +190,14 @@ export default function MetronomePage() {
           .slice(1)
           .map((time, index) => time - updated[index]);
         const averageInterval =
-          intervals.reduce((total, interval) => total + interval, 0) / intervals.length;
+          intervals.reduce((total, interval) => total + interval, 0) /
+          intervals.length;
         const nextBpm = Math.round(60_000 / averageInterval);
-        setBpm(Math.min(MAX_BPM, Math.max(MIN_BPM, nextBpm)));
+        const clamped = Math.min(MAX_BPM, Math.max(MIN_BPM, nextBpm));
+        setBpm(clamped);
+        if (isRunning) {
+          setPlayingBpm(clamped);
+        }
       }
       return updated;
     });
@@ -181,7 +209,7 @@ export default function MetronomePage() {
     if (remainingMs === null) {
       return "∞";
     }
-    const totalSeconds = Math.max(0, Math.floor(remainingMs / 1000));
+    const totalSeconds = Math.max(0, Math.ceil(remainingMs / 1000));
     const minutes = Math.floor(totalSeconds / 60)
       .toString()
       .padStart(2, "0");
@@ -189,128 +217,152 @@ export default function MetronomePage() {
     return `${minutes}:${seconds}`;
   }, [remainingMs]);
 
+  const isCountingDown = isRunning && remainingMs !== null;
+
+  const timerInputValue = isCountingDown
+    ? timerLabel
+    : durationMinutes === ""
+      ? ""
+      : String(durationMinutes);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <main className="container mx-auto px-4 py-16">
-        <div className="flex justify-start">
-          <Link
-            href="/guitar"
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-background/80 px-3 py-1 text-xs font-medium text-primary shadow-sm transition hover:bg-primary hover:text-primary-foreground"
-          >
-            Back to Guitar Hub
-          </Link>
-        </div>
+    <>
+      <div className={chalk.page}>
+        <div className={chalk.texture} aria-hidden="true" />
 
-        <header className="mx-auto max-w-3xl text-center">
-          <h1 className="text-4xl font-bold text-gray-900">Metronome</h1>
-          <p className="mt-3 text-base text-gray-600">
-            Tap tempo, pick a time signature, and dial in a visual + audible pulse to match your practice.
-          </p>
-        </header>
-
-        <section className="mx-auto mt-12 grid max-w-4xl gap-10 rounded-2xl border border-gray-200 bg-white/90 p-8 shadow-sm">
-          <div className="grid gap-8 md:grid-cols-2">
-            <div className="flex flex-col items-center gap-6">
-              <div className="flex flex-col items-center gap-4">
-                <button
-                  type="button"
-                  onClick={handleToggle}
-                  className={[
-                    "h-24 w-24 rounded-full text-lg font-semibold transition",
-                    isRunning
-                      ? "bg-red-500 text-white shadow-lg hover:bg-red-600"
-                      : "bg-emerald-500 text-white shadow hover:bg-emerald-600",
-                  ].join(" ")}
-                >
-                  {isRunning ? "Stop" : "Start"}
-                </button>
-                <button
-                  type="button"
-                  onClick={handleTap}
-                  className="rounded-full border border-gray-300 bg-white px-4 py-1 text-xs font-medium text-gray-700 shadow-sm transition hover:bg-gray-100"
-                >
-                  Tap Tempo
-                </button>
-              </div>
-
-              <div className="flex flex-col items-center gap-3 text-center">
-                <span className="text-xs uppercase tracking-wide text-gray-500">Timer (minutes)</span>
-                <input
-                  type="number"
-                  min={0}
-                  max={MAX_DURATION_MINUTES}
-                  value={durationMinutes === "" ? "" : durationMinutes}
-                  onChange={(event) => {
-                    const value = event.target.value;
-                    if (value === "") {
-                      setDurationMinutes("");
-                      return;
-                    }
-                    const nextValue = Math.max(0, Math.min(MAX_DURATION_MINUTES, parseInt(value, 10) || 0));
-                    setDurationMinutes(nextValue === 0 ? "" : nextValue);
-                  }}
-                  className="w-full max-w-[120px] rounded-md border border-gray-300 px-2 py-1 text-center"
-                  placeholder="∞"
-                />
-                <div className="text-sm font-semibold text-gray-900">{timerLabel}</div>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-6">
-              <div className="flex flex-col gap-3">
-                <span className="text-xs uppercase tracking-wide text-gray-500">Time Signature</span>
-                <div className="flex flex-wrap gap-2">
-                  {TIME_SIGNATURES.map((signature) => (
-                    <button
-                      key={signature.label}
-                      type="button"
-                      onClick={() => setActiveSignature(signature)}
-                      className={[
-                        "rounded-full border px-4 py-1 text-xs font-semibold transition",
-                        signature.label === activeSignature.label
-                          ? "border-red-500 bg-red-500 text-white shadow"
-                          : "border-gray-300 bg-white text-gray-700 hover:bg-gray-100",
-                      ].join(" ")}
-                    >
-                      {signature.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <span className="text-xs uppercase tracking-wide text-gray-500">Tempo</span>
-                <span className="text-4xl font-bold text-gray-900">{bpmLabel}</span>
-                <input
-                  type="range"
-                  min={MIN_BPM}
-                  max={MAX_BPM}
-                  value={bpm}
-                  onChange={(event) => setBpm(parseInt(event.target.value, 10))}
-                  className="w-full"
-                />
-                <div className="flex justify-between text-[10px] uppercase tracking-wide text-gray-400">
-                  <span>{MIN_BPM}</span>
-                  <span>{MAX_BPM}</span>
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <span className="text-xs uppercase tracking-wide text-gray-500">Volume</span>
-                <input
-                  type="range"
-                  min={0}
-                  max={100}
-                  value={volume}
-                  onChange={(event) => setVolume(parseInt(event.target.value, 10))}
-                  className="w-full"
-                />
-                <div className="text-[10px] uppercase tracking-wide text-gray-400">{volume}%</div>
-              </div>
-            </div>
+        <main className={chalk.mainWide}>
+          <div className={chalk.backLink}>
+            <Link
+              href="/guitar"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-background/80 px-3 py-1 font-body text-xs font-medium text-primary shadow-sm transition hover:bg-primary hover:text-primary-foreground"
+            >
+              Back to Guitar Hub
+            </Link>
           </div>
-        </section>
-      </main>
-    </div>
+
+          <header className={chalk.pageHeaderCenter}>
+            <h1 className={chalk.title}>Metronome</h1>
+            <p className={chalk.subtitle}>
+              Tap tempo, pick a time signature, and dial in a visual + audible pulse to
+              match your practice.
+            </p>
+          </header>
+
+          <section className={chalk.toolPanel}>
+            <div className={chalk.toolGrid}>
+              <div className={styles.playColumn}>
+                <div className={styles.playActions}>
+                  <button
+                    type="button"
+                    onClick={handleToggle}
+                    className={`${styles.startStop} ${
+                      isRunning ? styles.startStopRunning : styles.startStopIdle
+                    }`}
+                  >
+                    {isRunning ? "Stop" : "Start"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleTap}
+                    className={styles.tapButton}
+                  >
+                    Tap Tempo
+                  </button>
+                </div>
+
+                <div className={styles.timerBlock}>
+                  <span className={chalk.controlLabel}>Timer (minutes)</span>
+                  <input
+                    type="text"
+                    inputMode={isCountingDown ? "text" : "numeric"}
+                    readOnly={isCountingDown}
+                    value={isRunning && remainingMs === null ? "∞" : timerInputValue}
+                    onChange={(event) => {
+                      if (isCountingDown || isRunning) {
+                        return;
+                      }
+                      const value = event.target.value;
+                      if (value === "") {
+                        setDurationMinutes("");
+                        return;
+                      }
+                      const nextValue = Math.max(
+                        0,
+                        Math.min(MAX_DURATION_MINUTES, parseInt(value, 10) || 0)
+                      );
+                      setDurationMinutes(nextValue === 0 ? "" : nextValue);
+                    }}
+                    className={styles.numberInput}
+                    placeholder="∞"
+                  />
+                </div>
+              </div>
+
+              <div className={styles.controlsColumn}>
+                <div className={styles.controlGroup}>
+                  <span className={chalk.controlLabel}>Time Signature</span>
+                  <div className={styles.pillRow}>
+                    {TIME_SIGNATURES.map((signature) => (
+                      <button
+                        key={signature.label}
+                        type="button"
+                        onClick={() => setActiveSignature(signature)}
+                        className={`${styles.pill} ${
+                          signature.label === activeSignature.label
+                            ? styles.pillActive
+                            : ""
+                        }`}
+                      >
+                        {signature.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className={styles.controlGroup}>
+                  <span className={chalk.controlLabel}>Tempo</span>
+                  <span className={styles.bpmValue}>{bpmLabel}</span>
+                  <input
+                    type="range"
+                    min={MIN_BPM}
+                    max={MAX_BPM}
+                    value={bpm}
+                    onChange={(event) => setBpm(parseInt(event.target.value, 10))}
+                    onPointerUp={(event) =>
+                      commitBpm(parseInt(event.currentTarget.value, 10))
+                    }
+                    onKeyUp={(event) => {
+                      if (event.currentTarget instanceof HTMLInputElement) {
+                        commitBpm(parseInt(event.currentTarget.value, 10));
+                      }
+                    }}
+                    className={styles.range}
+                  />
+                  <div className={styles.rangeMeta}>
+                    <span>{MIN_BPM}</span>
+                    <span>{MAX_BPM}</span>
+                  </div>
+                </div>
+
+                <div className={styles.controlGroup}>
+                  <span className={chalk.controlLabel}>Volume</span>
+                  <input
+                    type="range"
+                    min={0}
+                    max={100}
+                    value={volume}
+                    onChange={(event) => setVolume(parseInt(event.target.value, 10))}
+                    className={styles.range}
+                  />
+                  <div className={styles.volumeLabel}>{volume}%</div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+
+      <AppFooter />
+    </>
   );
 }
