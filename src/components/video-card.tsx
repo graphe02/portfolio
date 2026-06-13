@@ -1,26 +1,64 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import type { guitarItem } from '@/lib/data';
-import { ExternalLink } from 'lucide-react';
+"use client";
+
+import Image from "next/image";
+import { useState } from "react";
+import { ExternalLink, Play } from "lucide-react";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { guitarItem } from "@/lib/data";
+import { cn } from "@/lib/utils";
 
 interface VideoCardProps {
   video: guitarItem;
+  className?: string;
+  embedClassName?: string;
+  thumbnailClassName?: string;
+  playIconClassName?: string;
 }
 
-export function VideoCard({ video }: VideoCardProps) {
-  const embedUrl = `https://www.youtube.com/embed/${video.youtubeVideoId}`;
+export function VideoCard({
+  video,
+  className,
+  embedClassName,
+  thumbnailClassName,
+  playIconClassName,
+}: VideoCardProps) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const embedUrl = `https://www.youtube.com/embed/${video.youtubeVideoId}?autoplay=1`;
   const videoUrl = `https://www.youtube.com/watch?v=${video.youtubeVideoId}`;
+  const thumbnailUrl = `https://i.ytimg.com/vi/${video.youtubeVideoId}/hqdefault.jpg`;
 
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-200">
-      <div className="aspect-video">
-        <iframe
-          src={embedUrl}
-          title={video.title}
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-          className="w-full h-full"
-        />
+    <Card className={cn("overflow-hidden transition-shadow duration-200", className)}>
+      <div className={cn("aspect-video w-full shrink-0", embedClassName)}>
+        {isPlaying ? (
+          <iframe
+            src={embedUrl}
+            title={video.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            className="h-full w-full"
+            loading="lazy"
+          />
+        ) : (
+          <button
+            type="button"
+            className={thumbnailClassName}
+            onClick={() => setIsPlaying(true)}
+            aria-label={`Play ${video.title}`}
+          >
+            <Image
+              src={thumbnailUrl}
+              alt={video.title}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover"
+            />
+            <span className={playIconClassName} aria-hidden="true">
+              <Play className="h-10 w-10 fill-current" />
+            </span>
+          </button>
+        )}
       </div>
       <CardHeader className="pb-3">
         <CardTitle className="text-lg line-clamp-2">{video.title}</CardTitle>

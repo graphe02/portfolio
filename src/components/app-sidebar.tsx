@@ -24,7 +24,7 @@ export function AppSidebar({ isOpen, onClose }: AppSidebarProps) {
     if (pathname === '/lifeunderday') {
       return 'lifeunderday';
     }
-    if (pathname === '/guitar') {
+    if (pathname.startsWith('/guitar')) {
       return 'guitar';
     }
     if (pathname === '/wip') {
@@ -34,7 +34,7 @@ export function AppSidebar({ isOpen, onClose }: AppSidebarProps) {
       return 'eyes-of-the-world';
     }
     if (pathname.startsWith('/tab/')) {
-      return 'guitar'; // Keep guitar active when viewing a tab
+      return 'guitar';
     }
     return ''; 
   };

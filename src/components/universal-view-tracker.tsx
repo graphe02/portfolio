@@ -24,8 +24,7 @@ export function UniversalViewTracker() {
       return;
     }
 
-    const trackView = async () => {
-      console.log('UniversalViewTracker: Starting to track view...');
+    const registerVisitor = async () => {
       try {
         const response = await fetch('/api/views', {
           method: 'POST',
@@ -34,23 +33,19 @@ export function UniversalViewTracker() {
           },
         });
 
-        console.log('UniversalViewTracker: Response status:', response.status);
-        
         if (response.ok) {
-          const count = await response.text();
-          console.log('UniversalViewTracker: View count after tracking:', count);
           hasTracked.current = true;
         } else {
           console.error('UniversalViewTracker: Response not ok:', response.status);
         }
       } catch (error) {
-        console.error('UniversalViewTracker: Error tracking view:', error);
+        console.error('UniversalViewTracker: Error registering visitor:', error);
       }
     };
 
     // Track view after a small delay to ensure page is fully loaded
     console.log('UniversalViewTracker: Setting timeout to track view...');
-    const timeoutId = setTimeout(trackView, 1000);
+    const timeoutId = setTimeout(registerVisitor, 1000);
 
     return () => {
       console.log('UniversalViewTracker: Cleaning up timeout');
