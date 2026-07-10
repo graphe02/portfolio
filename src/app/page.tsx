@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { asset } from "@/lib/paths";
 
 export const metadata: Metadata = {
   title: "About",
@@ -11,7 +12,7 @@ export default function AboutPage() {
       <h1>About</h1>
 
       <img
-        src="/pfp.jpg"
+        src={asset("/pfp.jpg")}
         alt="Daniel Yi"
         width={180}
         height={180}

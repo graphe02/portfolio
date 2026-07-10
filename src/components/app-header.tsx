@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { asset } from "@/lib/paths";
 
 const NAV_LINKS = [
   { href: "/", label: "About" },
@@ -17,7 +18,13 @@ export function AppHeader() {
     <header className="topbar">
       <div className="topbar-inner">
         <Link href="/" className="logo-link" aria-label="Home">
-          <img src="/logo.png" alt="" width={28} height={28} className="logo" />
+          <img
+            src={asset("/logo.png")}
+            alt=""
+            width={28}
+            height={28}
+            className="logo"
+          />
         </Link>
 
         <nav className="nav">

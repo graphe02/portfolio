@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { projects } from "@/lib/data";
+import { asset } from "@/lib/paths";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -18,7 +19,7 @@ export default function ProjectsPage() {
             <p>{project.description}</p>
             {project.imageUrl && (
               <img
-                src={project.imageUrl}
+                src={asset(project.imageUrl)}
                 alt=""
                 className="project-image"
               />

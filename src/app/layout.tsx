@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { LayoutWrapper } from "@/components/layout-wrapper";
+import { asset } from "@/lib/paths";
 
 export const metadata: Metadata = {
   title: "About",
   description: "Daniel Yi — engineer portfolio",
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    icon: asset("/favicon.ico"),
+    shortcut: asset("/logo.png"),
+    apple: asset("/logo.png"),
   },
 };
 

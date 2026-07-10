@@ -1,6 +1,8 @@
 # Portfolio
 
-Daniel Yi — static portfolio for GitHub Pages (`username.github.io`).
+Daniel Yi — static portfolio for GitHub Pages.
+
+Live at **https://graphe02.github.io/portfolio/** (project site under `/portfolio`).
 
 Dark, text-first site. Content lives under `content/`; you rarely need to touch `src/` for day-to-day updates.
 
