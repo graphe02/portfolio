@@ -1,25 +1,6 @@
-import tab1 from './tablatures/tab1.json';
-import tab2 from './tablatures/tab2.json';
-import guitarData from './guitar-data.json';
-import codingData from './coding-data.json';
-
-export interface TablatureItem {
-  id: string;
-  title: string;
-  artist: string;
-  description: string;
-  asciiContent?: string;
-  difficulty: 'Easy' | 'Medium' | 'Hard';
-}
-
-export interface guitarItem {
-  id: string;
-  title: string;
-  description: string;
-  youtubeVideoId: string;
-  tablatureId?: string; 
-  googleDriveUrl?: string;
-}
+import projectsData from "../../content/projects.json";
+import wipData from "../../content/wip.json";
+import socialData from "../../content/social.json";
 
 export interface ProjectItem {
   id: string;
@@ -28,16 +9,22 @@ export interface ProjectItem {
   technologies: string[];
   repoUrl?: string;
   liveUrl?: string;
-  youtubeVideoId?: string; 
-  imageUrl?: string; 
+  youtubeVideoId?: string;
+  imageUrl?: string;
 }
 
-// Import data from separate JSON files
-export const guitarVideos: guitarItem[] = guitarData;
-export const projects: ProjectItem[] = codingData;
+export interface WipItem {
+  id: string;
+  title: string;
+  description: string;
+  status: string;
+}
 
-// Import tablatures
-export const tablatures: TablatureItem[] = [
-  tab1 as TablatureItem,
-  tab2 as TablatureItem,
-];
+export interface SocialLink {
+  name: string;
+  url: string;
+}
+
+export const projects: ProjectItem[] = projectsData;
+export const wipItems: WipItem[] = wipData;
+export const socialLinks: SocialLink[] = socialData;

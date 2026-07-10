@@ -1,0 +1,62 @@
+[
+  {
+    "id": "daisy-seed-dsp",
+    "title": "Daisy Seed DSP",
+    "description": "Embedded audio DSP on the Daisy Seed.",
+    "status": "In progress."
+  },
+  {
+    "id": "ccna",
+    "title": "CCNA",
+    "description": "Cisco networking fundamentals.",
+    "status": "Studying."
+  },
+  {
+    "id": "lifeunderday-com",
+    "title": "lifeunderday.com",
+    "description": "Personal site / brand home.",
+    "status": "In progress."
+  },
+  {
+    "id": "this-website",
+    "title": "This website",
+    "description": "Static portfolio on GitHub Pages.",
+    "status": "Actively iterating."
+  },
+  {
+    "id": "song",
+    "title": "Maybe working on some song...",
+    "description": "Guitar and my voice.",
+    "status": "Check out my YouTube channel."
+  },
+  {
+    "id": "osu-robot",
+    "title": "osu! playing robot using STM32",
+    "description": "Electrical + YOLO + STM32.",
+    "status": "Stuck on figuring out how to sync images to audio."
+  },
+  {
+    "id": "guitar-pedal",
+    "title": "Guitar Pedal using STM32",
+    "description": "Electrical + STM32.",
+    "status": "Stuck on software I/O."
+  },
+  {
+    "id": "jamming-platform",
+    "title": "Guitar Jamming Platform",
+    "description": "Flutter.",
+    "status": "Can't figure out a good realtime networking solution."
+  },
+  {
+    "id": "networked-pong",
+    "title": "Networked Pong",
+    "description": "C++, Raylib, TCP/UDP.",
+    "status": "Raylib is kinda cool."
+  },
+  {
+    "id": "aim-trainer",
+    "title": "High Performance Aim Trainer",
+    "description": "C++, Raylib, Calculus.",
+    "status": "How does one implement 3d coordinates?"
+  }
+]

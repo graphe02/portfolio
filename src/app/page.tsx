@@ -1,122 +1,49 @@
-import { AppFooter } from '@/components/app-footer';
-import { PageViewCounter } from '@/components/page-view-counter';
-import Image from 'next/image';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { 
-  FiGithub, 
-  FiLinkedin, 
-  FiYoutube, 
-  FiMail,
-  FiExternalLink
-} from 'react-icons/fi';
+import type { Metadata } from "next";
+import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "About",
+};
 
 export default function AboutPage() {
-  // Social media links - update these with your actual URLs
-  const socialLinks = [
-    {
-      name: 'LinkedIn',
-      url: 'https://www.linkedin.com/in/daniel02yi/',
-      icon: FiLinkedin,
-      color: 'hover:bg-blue-600 hover:text-white'
-    },
-    {
-      name: 'Guitar and Projects',
-      url: 'https://youtube.com/@DanielsOddsEnds',
-      icon: FiYoutube,
-      color: 'hover:bg-red-600 hover:text-white'
-    },
-    {
-      name: 'GitHub',
-      url: 'https://github.com/graphe02',
-      icon: FiGithub,
-      color: 'hover:bg-gray-800 hover:text-white'
-    },
-    {
-      name: 'Email',
-      url: 'mailto:daniel02yi@gmail.com',
-      icon: FiMail,
-      color: 'hover:bg-gray-600 hover:text-white'
-    }
-  ];
-
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground font-body">
-      <main className="flex-grow container mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl sm:text-5xl font-headline font-bold mb-8 sm:mb-12 text-center text-primary">
-          About Me
-        </h1>
-        <Card className="w-full max-w-3xl mx-auto shadow-lg">
-          <CardHeader>
-            <CardTitle className="text-2xl sm:text-3xl text-center font-headline">Welcome to My Website!</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6 text-lg">
-            <div className="flex justify-center mb-8">
-              <Image
-                src="/pfp.jpg"
-                alt="Daniel's Profile Picture"
-                width={200}
-                height={200}
-                className="rounded-full shadow-md"
-                priority
-                placeholder="blur"
-                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-              />
-            </div>
-            <p>
-              Hi! I'm Daniel — an engineer, musician, and gamer.
-              This space is a collection of the things I enjoy creating and exploring.
-            </p>
-            <p>
-              I believe that as times change, we should grow and adapt—and that everyone needs a platform to share their thoughts and passions. 
-              It is becoming harder and harder to find unique ways to represent oneself, and I think the internet serves a great purpose in that aspect.
-              Whether it's a website, blog, social media feed, or podcast, it's all about expressing who you are.
-            </p>
-            <p>
-              This site is a showcase of my projects, ideas, and hobbies. I hope it sparks conversations, inspires feedback, and keeps me motivated to keep learning and building.
-            </p>
-            <p>
-              Thanks for stopping by!
-            </p>
-            
-            {/* Social Media Buttons */}
-            <div className="pt-6 border-t border-border">
-              <h3 className="text-xl font-semibold mb-4 text-center">Connect With Me</h3>
-              <div className="flex flex-wrap justify-center gap-3">
-                {socialLinks.map((social) => {
-                  const IconComponent = social.icon;
-                  return (
-                    <Button
-                      key={social.name}
-                      asChild
-                      variant="outline"
-                      size="sm"
-                      className={`transition-all duration-200 ${social.color}`}
-                    >
-                      <a 
-                        href={social.url} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2"
-                      >
-                        <IconComponent className="h-4 w-4" />
-                        <span>{social.name}</span>
-                        <FiExternalLink className="h-3 w-3 opacity-60" />
-                      </a>
-                    </Button>
-                  );
-                })}
-              </div>
-            </div>
+    <main className="page">
+      <h1>About</h1>
 
-            {/* Page View Counter */}
-            <div className="pt-6 border-t border-border">
-              <PageViewCounter />
-            </div>
-          </CardContent>
-        </Card>
-      </main>
-      <AppFooter />
-    </div>
+      <img
+        src="/pfp.jpg"
+        alt="Daniel Yi"
+        width={180}
+        height={180}
+        className="avatar"
+      />
+
+      <div className="stack">
+        <p>
+          Hi, I&apos;m Daniel. I&apos;m based in Dallas and looking for my next
+          opportunity in networks, systems, and telecom. I studied CS at Cal Poly
+          SLO, and most recently worked at Samsung doing LTE/5G device validation
+          — lots of Wireshark, lots of logs, lots of troubleshooting. That&apos;s more or less
+          where I picked up how to actually troubleshoot instead of just guessing.
+        </p>
+        <p>
+          Right now I&apos;m working through the CCNA and honestly still figuring
+          out exactly where I want to land next — but I&apos;m trying to absorb as
+          much as I can along the way, whether that&apos;s networking fundamentals
+          or just paying attention to what clicks.
+        </p>
+        <p>
+          Outside of work, I mess around with random code I find interesting, play
+          guitar, listen to a lot of music, and generally try to keep learning new
+          things. I&apos;m genuinely grateful we&apos;re living in a time with this
+          much stuff to be curious about — there&apos;s always something new to dig
+          into. What I&apos;m interested in shifts around a lot, so if you want to
+          see what I&apos;ve actually been up to lately, check the{" "}
+          <Link href="/blog">Blog</Link> or{" "}
+          <Link href="/projects">Projects</Link> section — that&apos;s where the
+          real progress (or lack thereof) shows up.
+        </p>
+      </div>
+    </main>
   );
 }
