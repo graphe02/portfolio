@@ -1,43 +1,63 @@
-"use client";
+import type { Metadata } from "next";
+import { projects } from "@/lib/data";
 
-
-import { AppFooter } from '@/components/app-footer';
-import { ProjectCard } from '@/components/project-card';
-import { projects } from '@/lib/data';
-import { FolderOpen } from 'lucide-react';
+export const metadata: Metadata = {
+  title: "Projects",
+};
 
 export default function ProjectsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <main className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Projects</h1>
-          <p className="text-lg text-gray-600 mb-6">
-            Explore my coding projects, experiments, and creative work
-          </p>
-        </div>
-        
-        <div className="space-y-6">
-          <div className="flex items-center gap-2 mb-6">
-            <FolderOpen className="h-6 w-6 text-blue-500" />
-            <h2 className="text-2xl font-bold">Projects</h2>
-          </div>
-          {projects.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {projects.map((project) => (
-                <ProjectCard key={project.id} project={project} />
-              ))}
+    <main className="page page-wide">
+      <h1>Projects</h1>
+      <p className="muted">Selected work across software, systems, and tools.</p>
+
+      <section>
+        {projects.map((project) => (
+          <article key={project.id} className="project">
+            <h2>{project.title}</h2>
+            <p>{project.description}</p>
+            {project.imageUrl && (
+              <img
+                src={project.imageUrl}
+                alt=""
+                className="project-image"
+              />
+            )}
+            {project.technologies.length > 0 && (
+              <p className="meta">{project.technologies.join(" · ")}</p>
+            )}
+            <div className="actions">
+              {project.repoUrl && (
+                <a
+                  href={project.repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  GitHub
+                </a>
+              )}
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Live
+                </a>
+              )}
+              {project.youtubeVideoId && (
+                <a
+                  href={`https://www.youtube.com/watch?v=${project.youtubeVideoId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Video
+                </a>
+              )}
             </div>
-          ) : (
-            <div className="text-center py-12">
-              <FolderOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-600">No projects to display</p>
-            </div>
-          )}
-        </div>
-      </main>
-      
-      <AppFooter />
-    </div>
+          </article>
+        ))}
+      </section>
+    </main>
   );
-} 
+}

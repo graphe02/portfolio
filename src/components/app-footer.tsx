@@ -1,14 +1,25 @@
+import { socialLinks } from "@/lib/data";
+
 export function AppFooter() {
   return (
-    <footer className="bg-muted border-t border-border py-8 text-center">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} Daniel Yi.
-        </p>
-        <p className="text-xs text-muted-foreground mt-1">
-          Built with Next.js, Tailwind CSS, and ShadCN UI.
-        </p>
+    <footer className="site-footer">
+      <div className="footer-links">
+        {socialLinks.map((social) => (
+          <a
+            key={social.name}
+            href={social.url}
+            target={social.url.startsWith("mailto:") ? undefined : "_blank"}
+            rel={
+              social.url.startsWith("mailto:")
+                ? undefined
+                : "noopener noreferrer"
+            }
+          >
+            {social.name}
+          </a>
+        ))}
       </div>
+      <p className="footer-copy">© {new Date().getFullYear()} Daniel Yi</p>
     </footer>
   );
 }

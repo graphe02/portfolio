@@ -1,50 +1,46 @@
 "use client";
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { Menu, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-interface AppHeaderProps {
-  isSidebarOpen: boolean;
-  onToggleSidebar: () => void;
-}
+const NAV_LINKS = [
+  { href: "/", label: "About" },
+  { href: "/projects", label: "Projects" },
+  { href: "/wip", label: "WIP" },
+  { href: "/blog", label: "Blog" },
+] as const;
 
-export function AppHeader({ isSidebarOpen, onToggleSidebar }: AppHeaderProps) {
+export function AppHeader() {
+  const pathname = usePathname();
+
   return (
-    <header className="bg-card border-b border-border sticky top-0 z-50 h-16 flex items-center justify-between px-4">
-      {/* Left side - Sidebar toggle */}
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={onToggleSidebar}
-        aria-label="Toggle sidebar"
-      >
-        {isSidebarOpen ? (
-          <X className="h-5 w-5" />
-        ) : (
-          <Menu className="h-5 w-5" />
-        )}
-      </Button>
-      
-      {/* Center - Logo/Title */}
-      <div className="flex-1 flex justify-center">
-        <Link href="/" className="flex items-center gap-3">
-          <Image
-            src="/logo.png"
-            alt="Daniel's Logo"
-            width={32}
-            height={32}
-            className="h-8 w-8"
-          />
-          <span className="text-xl font-headline font-bold text-foreground">
-            lifeunderday
-          </span>
+    <header className="topbar">
+      <div className="topbar-inner">
+        <Link href="/" className="logo-link" aria-label="Home">
+          <img src="/logo.png" alt="" width={28} height={28} className="logo" />
         </Link>
+
+        <nav className="nav">
+          {NAV_LINKS.map((link) => {
+            const isActive =
+              link.href === "/"
+                ? pathname === "/"
+                : pathname.startsWith(link.href);
+
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={isActive ? "active" : undefined}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+        </nav>
+
+        <div className="topbar-spacer" aria-hidden="true" />
       </div>
-      
-      {/* Right side - Spacer for balance */}
-      <div className="w-10" />
     </header>
   );
-} 
+}
