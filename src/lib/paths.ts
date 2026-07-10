@@ -1,6 +1,8 @@
+/** Must match `basePath` in next.config.ts (GitHub project Pages). */
+export const BASE_PATH = "/portfolio";
+
 /** Prefix public asset paths for GitHub Pages project sites. */
 export function asset(path: string): string {
-  const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   const normalized = path.startsWith("/") ? path : `/${path}`;
-  return `${base}${normalized}`;
+  return `${BASE_PATH}${normalized}`;
 }
