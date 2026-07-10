@@ -134,9 +134,10 @@ npm run dev
 npm run build   # writes static site to out/
 ```
 
-Push to `main` or `master`. GitHub Actions publishes `out/` to Pages.
+Push to `main`. GitHub Actions builds the site and publishes `out/` to Pages
+([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)).
 
-**Repo settings:** Settings → Pages → Source → GitHub Actions
+**Repo settings:** Settings → Pages → Source → **GitHub Actions**
 
 ## License
 
