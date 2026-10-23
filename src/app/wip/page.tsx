@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { wipItems } from "@/lib/data";
+import { PageHeader } from "@/components/page-header";
 
 export const metadata: Metadata = {
   title: "WIP",
@@ -7,9 +8,8 @@ export const metadata: Metadata = {
 
 export default function WipPage() {
   return (
-    <main className="page page-wide">
-      <h1>WIP</h1>
-      <p className="muted">In no particular order.</p>
+    <main className="page">
+      <PageHeader title="WIP" lead="In no particular order." />
 
       <section>
         {wipItems.map((item) => (

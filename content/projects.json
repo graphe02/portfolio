@@ -5,28 +5,28 @@
     "description": "Realtime audio effects for guitar using PortAudio and Raylib.",
     "technologies": ["C", "PortAudio", "Raylib"],
     "repoUrl": "https://github.com/graphe02/pedalboard",
-    "imageUrl": "/project-thumbnails/Pedalboard.png"
+    "imageUrl": "/project-thumbnails/Pedalboard.webp"
   },
   {
     "id": "4",
     "title": "Personal Website",
     "description": "This site — a static portfolio hosted on GitHub Pages.",
     "technologies": ["Next.js", "GitHub Pages"],
-    "imageUrl": "/project-thumbnails/portfolio.jpeg"
+    "imageUrl": "/project-thumbnails/portfolio.webp"
   },
   {
     "id": "3",
     "title": "Chat",
     "description": "Available upon request.",
     "technologies": ["C"],
-    "imageUrl": "/project-thumbnails/chat.png"
+    "imageUrl": "/project-thumbnails/chat.webp"
   },
   {
     "id": "2",
     "title": "Distributed K-Nearest Neighbor",
     "description": "Available upon request.",
     "technologies": ["Java/Scala", "Git", "Apache Spark/Hadoop"],
-    "imageUrl": "/project-thumbnails/distributedknn.png"
+    "imageUrl": "/project-thumbnails/distributedknn.webp"
   },
   {
     "id": "1",
@@ -34,7 +34,7 @@
     "description": "Web app for discovering and rating decorated houses with Google Maps.",
     "technologies": ["Next.js", "MUI", "Prisma", "PostgreSQL", "Google Maps API"],
     "repoUrl": "https://github.com/CSC307Fall2023/Team3",
-    "imageUrl": "/project-thumbnails/decormaps.png"
+    "imageUrl": "/project-thumbnails/decormaps.webp"
   },
   {
     "id": "0",
@@ -42,6 +42,6 @@
     "description": "Cloud storage by leveraging YouTube's data center.",
     "technologies": ["Python"],
     "repoUrl": "https://github.com/dyi03/youTubeCloud",
-    "imageUrl": "/project-thumbnails/youtubecloud.png"
+    "imageUrl": "/project-thumbnails/youtubecloud.webp"
   }
 ]

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllPosts } from "@/lib/blog";
+import { PageHeader } from "@/components/page-header";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -10,9 +11,11 @@ export default function BlogPage() {
   const posts = getAllPosts();
 
   return (
-    <main className="page page-wide">
-      <h1>Blog</h1>
-      <p className="muted">Notes, progress, and whatever I&apos;m digging into.</p>
+    <main className="page">
+      <PageHeader
+        title="Blog"
+        lead="Notes, progress, and whatever I'm digging into."
+      />
 
       <section>
         {posts.length === 0 ? (

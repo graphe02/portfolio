@@ -18,7 +18,7 @@ Dark, text-first site. Content lives under `content/`; you rarely need to touch 
 | Change **footer links** | [`content/social.json`](content/social.json) |
 | Change **About** copy / photo | [`src/app/page.tsx`](src/app/page.tsx), `public/pfp.jpg` |
 | Change **logo** | `public/logo.png` |
-| Change **look** (colors, spacing) | [`src/app/globals.css`](src/app/globals.css) |
+| Change **look** (colors, spacing) | [`src/app/globals.css`](src/app/globals.css) — page width is `--content-max`, side padding `--content-pad-x` |
 | Change **nav items** | [`src/components/app-header.tsx`](src/components/app-header.tsx) |
 
 After edits: refresh `npm run dev`, or `npm run build` for production.
@@ -34,11 +34,12 @@ After edits: refresh `npm run dev`, or `npm run build` for production.
   "repoUrl": "https://github.com/...",
   "liveUrl": "https://...",
   "youtubeVideoId": "optional",
-  "imageUrl": "/project-thumbnails/my-image.png"
+  "imageUrl": "/project-thumbnails/my-image.webp"
 }
 ```
 
 Put images in `public/project-thumbnails/`. Paths start with `/`.
+Keep them small: ~1200px wide max, WebP (`cwebp -q 80 -resize 1200 0 in.png -o out.webp`).
 
 ### WIP entry shape
 

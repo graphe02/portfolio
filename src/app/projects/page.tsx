@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { projects } from "@/lib/data";
 import { asset } from "@/lib/paths";
+import { PageHeader } from "@/components/page-header";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -8,9 +9,11 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <main className="page page-wide">
-      <h1>Projects</h1>
-      <p className="muted">Selected work across software, systems, and tools.</p>
+    <main className="page">
+      <PageHeader
+        title="Projects"
+        lead="Selected work across software, systems, and tools."
+      />
 
       <section>
         {projects.map((project) => (
@@ -20,7 +23,9 @@ export default function ProjectsPage() {
             {project.imageUrl && (
               <img
                 src={asset(project.imageUrl)}
-                alt=""
+                alt={project.title}
+                loading="lazy"
+                decoding="async"
                 className="project-image"
               />
             )}

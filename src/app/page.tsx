@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { asset } from "@/lib/paths";
+import { PageHeader } from "@/components/page-header";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: { absolute: "About — Daniel Yi" },
 };
 
 export default function AboutPage() {
   return (
     <main className="page">
-      <h1>About</h1>
+      <PageHeader title="About" />
 
       <img
         src={asset("/pfp.jpg")}
@@ -21,28 +22,24 @@ export default function AboutPage() {
 
       <div className="stack">
         <p>
-          Hi, I&apos;m Daniel. I&apos;m based in Dallas and looking for my next
-          opportunity in networks, systems, and telecom. I studied CS at Cal Poly
-          SLO, and most recently worked at Samsung doing LTE/5G device validation
-          — lots of Wireshark, lots of logs, lots of troubleshooting. That&apos;s more or less
-          where I picked up how to actually troubleshoot instead of just guessing.
+          Hi, I&apos;m Daniel. I graduated from Cal Poly San Luis Obispo in 2024
+          with a B.S. in Computer Science, spent some time as a network engineer
+          at Samsung Electronics America, and now I&apos;m in Michigan,
+          working as a network admin at LG. I like that no two days are the
+          same — it can be stressful, but I always come away knowing more than
+          I did the day before.
         </p>
+
         <p>
-          Right now I&apos;m working through the CCNA and honestly still figuring
-          out exactly where I want to land next — but I&apos;m trying to absorb as
-          much as I can along the way, whether that&apos;s networking fundamentals
-          or just paying attention to what clicks.
+          Outside of work, I do whatever I feel like: gaming, music, guitar,
+          coding, the gym, reading, in no particular order. At the end of the
+          day, we&apos;re all just trying to figure out this thing called life.
         </p>
+
         <p>
-          Outside of work, I mess around with random code I find interesting, play
-          guitar, listen to a lot of music, and generally try to keep learning new
-          things. I&apos;m genuinely grateful we&apos;re living in a time with this
-          much stuff to be curious about — there&apos;s always something new to dig
-          into. What I&apos;m interested in shifts around a lot, so if you want to
-          see what I&apos;ve actually been up to lately, check the{" "}
+          If you want to see what I&apos;ve been up to lately, check the{" "}
           <Link href="/blog">Blog</Link> or{" "}
-          <Link href="/projects">Projects</Link> section — that&apos;s where the
-          real progress (or lack thereof) shows up.
+          <Link href="/projects">Projects</Link> section.
         </p>
       </div>
     </main>

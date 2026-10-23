@@ -1,12 +1,10 @@
 import type { NextConfig } from "next";
-
-/** Repo is graphe02/portfolio → site lives at graphe02.github.io/portfolio */
-const basePath = "/portfolio";
+import { BASE_PATH } from "./src/lib/paths";
 
 const nextConfig: NextConfig = {
   output: "export",
-  basePath,
-  assetPrefix: basePath,
+  basePath: BASE_PATH,
+  assetPrefix: BASE_PATH,
   trailingSlash: true,
   images: {
     unoptimized: true,

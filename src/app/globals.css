@@ -7,7 +7,8 @@
   --link: #7ea8ff;
   --link-hover: #a8c4ff;
   --hover: #ffffff0a;
-  --max: 42rem;
+  --content-max: 48rem;
+  --content-pad-x: 1.25rem;
   --font: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
     Arial, sans-serif;
 }
@@ -23,6 +24,11 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100%;
+}
+
+/* Reserve scrollbar space so content doesn't jump between short and long pages */
+html {
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -65,9 +71,9 @@ img {
 
 .topbar-inner {
   width: 100%;
-  max-width: 52rem;
+  max-width: var(--content-max);
   margin: 0 auto;
-  padding: 0.85rem 1.25rem;
+  padding: 0.85rem var(--content-pad-x);
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
@@ -78,7 +84,6 @@ img {
   display: inline-flex;
   border-radius: 4px;
   padding: 0.2rem;
-  margin-left: -0.2rem;
 }
 
 .logo-link:hover {
@@ -114,24 +119,30 @@ img {
   background: var(--hover);
 }
 
+/* Same width as .logo-link (28px logo + padding) so the nav sits exactly centered */
 .topbar-spacer {
-  width: 28px;
+  width: calc(28px + 0.4rem);
 }
 
 .page {
   flex: 1;
   width: 100%;
-  max-width: var(--max);
+  max-width: var(--content-max);
   margin: 0 auto;
-  padding: 3rem 1.25rem 4rem;
+  padding: 3rem var(--content-pad-x) 4rem;
 }
 
-.page-wide {
-  max-width: 52rem;
+/* Every page starts with <PageHeader>: title, optional lead, then a fixed gap */
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.page-header .muted {
+  margin: 0.5rem 0 0;
 }
 
 h1 {
-  margin: 0 0 1.5rem;
+  margin: 0;
   font-size: 2.25rem;
   font-weight: 700;
   letter-spacing: -0.03em;
@@ -154,10 +165,6 @@ p {
 
 .muted {
   color: var(--fg-muted);
-}
-
-.faint {
-  color: var(--fg-faint);
 }
 
 .stack > * + * {
@@ -187,26 +194,40 @@ p {
   border: 1px solid var(--border);
 }
 
-.project {
+/* Shared list entry (Projects, WIP, Blog) */
+.project,
+.wip-item,
+.blog-item {
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
-  padding: 1.5rem 0;
+  gap: 0.5rem;
+  padding: 1.25rem 0;
   border-top: 1px solid var(--border);
 }
 
-.project:first-of-type {
+.project:first-of-type,
+.wip-item:first-of-type,
+.blog-item:first-of-type {
   border-top: none;
-  padding-top: 0.5rem;
+  padding-top: 0;
 }
 
-.project h2 {
+.project h2,
+.wip-item h2,
+.blog-item h2 {
   margin: 0;
   font-size: 1.15rem;
 }
 
-.project p {
+.project p,
+.wip-item p,
+.blog-item p {
   margin: 0;
+}
+
+.meta {
+  font-size: 0.85rem;
+  color: var(--fg-faint);
 }
 
 .project-image {
@@ -217,13 +238,7 @@ p {
   border-radius: 4px;
   border: 1px solid var(--border);
   background: #111;
-  margin: 0.25rem 0 0.15rem;
-}
-
-.project .meta {
-  font-size: 0.85rem;
-  color: var(--fg-faint);
-  margin: 0;
+  margin: 0.25rem 0;
 }
 
 .project .actions {
@@ -231,42 +246,6 @@ p {
   flex-wrap: wrap;
   gap: 0.75rem 1rem;
   font-size: 0.9rem;
-}
-
-.wip-item {
-  padding: 1.1rem 0;
-  border-top: 1px solid var(--border);
-}
-
-.wip-item:first-of-type {
-  border-top: none;
-  padding-top: 0.5rem;
-}
-
-.wip-item h2 {
-  margin: 0 0 0.35rem;
-  font-size: 1.1rem;
-}
-
-.wip-item .meta {
-  font-size: 0.85rem;
-  color: var(--fg-faint);
-  margin: 0.35rem 0 0;
-}
-
-.blog-item {
-  padding: 1.1rem 0;
-  border-top: 1px solid var(--border);
-}
-
-.blog-item:first-of-type {
-  border-top: none;
-  padding-top: 0.5rem;
-}
-
-.blog-item h2 {
-  margin: 0 0 0.35rem;
-  font-size: 1.1rem;
 }
 
 .blog-item h2 a {
@@ -277,20 +256,9 @@ p {
   color: var(--link-hover);
 }
 
-.blog-item .meta,
-.post-date {
-  font-size: 0.85rem;
-  color: var(--fg-faint);
-  margin: 0 0 0.5rem;
-}
-
 .back-link {
-  margin: 0 0 1.25rem;
+  margin: 2.5rem 0 0;
   font-size: 0.9rem;
-}
-
-.prose {
-  margin-top: 1.25rem;
 }
 
 .prose p {
@@ -337,7 +305,7 @@ p {
 }
 
 .site-footer {
-  padding: 1.5rem 1.25rem 2rem;
+  padding: 1.5rem var(--content-pad-x) 2rem;
   border-top: 1px solid var(--border);
   text-align: center;
   font-size: 0.85rem;
